@@ -1,25 +1,26 @@
+
 {
   "name": "Ателье Сагарадзе",
   "short_name": "Сагарадзе",
-  "start_url": "./index.html",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#2a2118",
   "theme_color": "#3d2b1f",
   "icons": [
     {
-      "src": "/icons/android-icon-192×192.png",
+      "src": "/icons/android-icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icons/android-icon-512×512.png",
+      "src": "/icons/android-icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icons/android-icon-512×512.png",
+      "src": "/icons/android-icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
