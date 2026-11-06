@@ -1,0 +1,20 @@
+{
+  "name": "Ателье Сагарадзе",
+  "short_name": "Сагарадзе",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#2a2118",
+  "theme_color": "#3d2b1f",
+  "icons": [
+    {
+      "src": "atelier/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "atelier/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
