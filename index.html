@@ -80,10 +80,10 @@
       .gallery { grid-template-columns: 1fr 1fr; gap: 2.5rem 2rem; padding: 2.5rem 2rem 5rem; }
     }
     
-    /* Стили для лампы подсветки */
+    /* Стили для лампы над фото */
     .lamp-container {
       text-align: center;
-      margin-bottom: -10px;
+      margin-bottom: -8px;
       position: relative;
       z-index: 3;
     }
@@ -91,7 +91,7 @@
       background: none;
       border: none;
       cursor: pointer;
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       outline: none;
       transition: transform 0.2s ease;
       filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
@@ -107,16 +107,16 @@
       transform: rotate(var(--rot, 0deg));
       display: flex; flex-direction: column; align-items: center;
     }
-    
-    /* Состояние подсветки выключена (по умолчанию) */
+
+    /* До нажатия на лампу — подсветка выключена (картинка приглушена) */
     .frame .img-box img {
-      filter: sepia(0.3) contrast(1.05) brightness(0.5);
+      filter: sepia(0.3) contrast(1.05) brightness(0.6);
       transition: filter 0.4s ease, box-shadow 0.4s ease;
     }
 
-    /* Состояние подсветки включена */
+    /* После нажатия — подсветка включена */
     .frame.lit .img-box img {
-      filter: sepia(0.25) contrast(1.05) brightness(1.02);
+      filter: sepia(0.25) contrast(1.05) brightness(0.97);
       box-shadow: 0 0 25px rgba(255, 230, 150, 0.6);
     }
     .frame.lit {
@@ -125,6 +125,7 @@
 
     .frame:hover {
       transform: rotate(0deg) scale(1.03);
+      box-shadow: 0 14px 36px rgba(0,0,0,0.7), inset 0 0 0 3px var(--gold), inset 0 0 0 6px var(--wood);
     }
     .img-box {
       width: 100%; overflow: hidden; background: #1a140f;
@@ -280,7 +281,7 @@
   </main>
 
   <footer>
-    Музейный сайт · Фотографии из коллекции Национаского архива Грузии<br>
+    Музейный сайт · Фотографии из коллекции Национального архива Грузии<br>
     <a href="https://archive.gov.ge/ge/nikoloz-sagharadzis-fotokolektsia-1" target="_blank" rel="noopener">archive.gov.ge — полная коллекция Николоза Сагарадзе</a>
   </footer>
 
@@ -299,23 +300,18 @@
     const modalTitle = document.getElementById('modalTitle');
     const closeBtn = document.getElementById('closeModal');
 
-    // Логика клика по лампе (включение/выключение подсветки)
     gallery.addEventListener('click', (e) => {
+      // Обработка клика по лампе (включение/выключение подсветки)
       const lampBtn = e.target.closest('.lamp-btn');
       if (lampBtn) {
         const wrapper = lampBtn.closest('.gallery-item-wrapper');
         const frame = wrapper.querySelector('.frame');
         frame.classList.toggle('lit');
-        // Меняем иконку лампы в зависимости от состояния
-        if (frame.classList.contains('lit')) {
-          lampBtn.textContent = '💡';
-        } else {
-          lampBtn.textContent = '🔌';
-        }
+        lampBtn.textContent = frame.classList.contains('lit') ? '💡' : '🔌';
         return;
       }
 
-      // Открытие видео по клику на рамку фото
+      // Обработка клика по карточке (открытие видео)
       const frame = e.target.closest('.frame');
       if (!frame) return;
       const videoSrc = frame.dataset.video;
