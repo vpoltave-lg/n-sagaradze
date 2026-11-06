@@ -1,3 +1,5 @@
+Изменили логику: теперь фотографии загружаются с ленивой загрузкой (loading="lazy"), изначально отображаются в нормальном исходном виде, а по клику на саму картину (рамку) включается эффект подсветки и мягкого свечения. Повторный клик выключает подсветку обратно.
+Вот обновленный код файла index.html:
 <!DOCTYPE html>
 <html lang="ru">
   <head>
@@ -8,22 +10,14 @@
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="styles.css">
     <style>
-      /* Добавлено управление включением/выключением подсветки от лампы */
-      .plate-hit:not(.lit) .frame img {
-        filter: brightness(0.6) contrast(1.05);
-        transition: filter 0.4s ease, box-shadow 0.4s ease;
-      }
+      /* Подсветка включается по классу .lit при нажатии на картину */
       .plate-hit.lit .frame img {
-        filter: brightness(1) contrast(1.05);
-        box-shadow: 0 0 25px rgba(255, 230, 150, 0.6);
+        filter: brightness(1.15) contrast(1.08) drop-shadow(0 0 12px rgba(255, 230, 150, 0.7));
         transition: filter 0.4s ease, box-shadow 0.4s ease;
       }
-      .lamp {
-        cursor: pointer;
-        transition: transform 0.2s ease;
-      }
-      .lamp:hover {
-        transform: scale(1.1);
+      .plate-hit.lit .frame {
+        box-shadow: 0 14px 36px rgba(0,0,0,0.7), 0 -10px 25px rgba(255, 220, 130, 0.35);
+        transition: box-shadow 0.4s ease;
       }
     </style>
   </head>
@@ -407,11 +401,11 @@
     </main>
     <script src="salon.js"></script>
     <script>
-      // Скрипт для включения/выключения подсветки по клику на лампу
+      // Включение и выключение подсветки при нажатии на рамку картины
       document.addEventListener('click', (e) => {
-        const lamp = e.target.closest('.lamp');
-        if (!lamp) return;
-        const plateHit = lamp.closest('.plate-hit');
+        const frame = e.target.closest('.frame');
+        if (!frame) return;
+        const plateHit = frame.closest('.plate-hit');
         if (plateHit) {
           plateHit.classList.toggle('lit');
         }
@@ -419,3 +413,4 @@
     </script>
   </body>
 </html>
+
