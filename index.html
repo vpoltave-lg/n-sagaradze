@@ -19,11 +19,6 @@
         transition: box-shadow 0.4s ease;
       }
     </style>
-<script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js');
-}
-</script>
   </head>
   <body>
     <main class="salon">
@@ -404,6 +399,7 @@ if ('serviceWorker' in navigator) {
       </footer>
     </main>
     <script src="salon.js"></script>
+    <script src="salon.js"></script>
     <script>
       // Включение и выключение подсветки при нажатии на рамку картины
       document.addEventListener('click', (e) => {
@@ -414,7 +410,18 @@ if ('serviceWorker' in navigator) {
           plateHit.classList.toggle('lit');
         }
       });
+
+      // Регистрация Service Worker для PWA
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('sw.js')
+            .then((reg) => console.log('Service Worker зарегистрирован:', reg.scope))
+            .catch((err) => console.log('Ошибка регистрации Service Worker:', err));
+        });
+      }
     </script>
+
+
   </body>
 </html>
 
