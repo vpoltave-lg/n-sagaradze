@@ -1,335 +1,421 @@
 <!DOCTYPE html>
-<html lang="ka">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ნიკოლოზ საღარაძე · Nikoloz Sagaradze · Музей фотографа</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Georgian:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --wood: #3d2b1f;
-      --gold: #c9a227;
-      --cream: #f5e6d3;
-      --wall: #2a2118;
-      --frame: #5c4033;
-      --shadow: rgba(0,0,0,0.55);
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Cormorant Garamond', 'Noto Serif Georgian', serif;
-      background-color: var(--wall);
-      color: var(--cream);
-      min-height: 100vh;
-      overflow-x: hidden;
-      background-image:
-        radial-gradient(circle at 20% 30%, rgba(201,162,39,0.07) 0%, transparent 40%),
-        radial-gradient(circle at 80% 70%, rgba(201,162,39,0.05) 0%, transparent 35%),
-        repeating-linear-gradient(0deg, transparent, transparent 48px, rgba(201,162,39,0.04) 48px, rgba(201,162,39,0.04) 50px),
-        repeating-linear-gradient(90deg, transparent, transparent 48px, rgba(201,162,39,0.04) 48px, rgba(201,162,39,0.04) 50px),
-        repeating-linear-gradient(45deg, transparent, transparent 28px, rgba(92,64,51,0.15) 28px, rgba(92,64,51,0.15) 30px),
-        repeating-linear-gradient(-45deg, transparent, transparent 28px, rgba(92,64,51,0.12) 28px, rgba(92,64,51,0.12) 30px);
-      background-size: 100% 100%, 100% 100%, 100px 100px, 100px 100px, 60px 60px, 60px 60px;
-    }
-    .ornament-border {
-      position: fixed; inset: 0; pointer-events: none; z-index: 0;
-      border: 18px solid transparent;
-      border-image: repeating-linear-gradient(45deg, var(--gold) 0, var(--gold) 6px, transparent 6px, transparent 14px) 18;
-      opacity: 0.35;
-    }
-    header {
-      position: relative; z-index: 2; text-align: center;
-      padding: 2.5rem 1.5rem 1.5rem;
-    }
-    .portrait-wrap {
-      display: flex; justify-content: center; align-items: center;
-      margin: 0 auto 1.4rem; position: relative; width: fit-content;
-    }
-    .portrait {
-      width: 180px; height: 220px;
-      object-fit: cover; object-position: center center;
-      border-radius: 50% / 45%;
-      border: 6px solid var(--gold);
-      box-shadow: 0 0 0 3px var(--wood), 0 12px 30px var(--shadow), inset 0 0 20px rgba(0,0,0,0.3);
-      filter: sepia(0.25) contrast(1.05);
-      display: block;
-    }
-    .portrait-wrap::before, .portrait-wrap::after {
-      content: '✦'; position: absolute; left: 50%; transform: translateX(-50%);
-      color: var(--gold); font-size: 1.1rem; opacity: 0.7;
-    }
-    .portrait-wrap::before { top: -10px; }
-    .portrait-wrap::after { bottom: -12px; }
-    h1 {
-      font-family: 'Noto Serif Georgian', 'Cormorant Garamond', serif;
-      font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 700;
-      letter-spacing: 0.04em; color: var(--gold);
-      text-shadow: 0 2px 8px rgba(0,0,0,0.6); margin-bottom: 0.3rem;
-    }
-    .subtitle { font-size: 1.15rem; font-style: italic; opacity: 0.9; margin-bottom: 0.4rem; }
-    .years { font-size: 0.95rem; letter-spacing: 0.15em; color: var(--gold); opacity: 0.85; }
-    .intro {
-      max-width: 640px; margin: 1.5rem auto 0; font-size: 1.05rem; line-height: 1.55; opacity: 0.9;
-    }
-    .gallery {
-      position: relative; z-index: 2; display: grid; grid-template-columns: 1fr;
-      gap: 2.2rem; padding: 2rem 1.2rem 4rem; max-width: 1100px; margin: 0 auto;
-    }
-    @media (min-width: 720px) {
-      .gallery { grid-template-columns: 1fr 1fr; gap: 2.5rem 2rem; padding: 2.5rem 2rem 5rem; }
-    }
-    
-    /* Стили для лампы над фото */
-    .lamp-container {
-      text-align: center;
-      margin-bottom: -8px;
-      position: relative;
-      z-index: 3;
-    }
-    .lamp-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 1.6rem;
-      outline: none;
-      transition: transform 0.2s ease;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
-    }
-    .lamp-btn:hover {
-      transform: scale(1.1);
-    }
-
-    .frame {
-      position: relative; background: var(--frame); padding: 14px 14px 10px;
-      box-shadow: 0 8px 24px var(--shadow), inset 0 0 0 3px var(--gold), inset 0 0 0 6px var(--wood);
-      cursor: pointer; transition: transform 0.4s ease, box-shadow 0.4s ease;
-      transform: rotate(var(--rot, 0deg));
-      display: flex; flex-direction: column; align-items: center;
-    }
-
-    /* До нажатия на лампу — подсветка выключена (картинка приглушена) */
-    .frame .img-box img {
-      filter: sepia(0.3) contrast(1.05) brightness(0.6);
-      transition: filter 0.4s ease, box-shadow 0.4s ease;
-    }
-
-    /* После нажатия — подсветка включена */
-    .frame.lit .img-box img {
-      filter: sepia(0.25) contrast(1.05) brightness(0.97);
-      box-shadow: 0 0 25px rgba(255, 230, 150, 0.6);
-    }
-    .frame.lit {
-      box-shadow: 0 12px 30px rgba(0,0,0,0.6), inset 0 0 0 3px var(--gold), inset 0 0 0 6px var(--wood), 0 -15px 30px rgba(255, 220, 130, 0.25);
-    }
-
-    .frame:hover {
-      transform: rotate(0deg) scale(1.03);
-      box-shadow: 0 14px 36px rgba(0,0,0,0.7), inset 0 0 0 3px var(--gold), inset 0 0 0 6px var(--wood);
-    }
-    .img-box {
-      width: 100%; overflow: hidden; background: #1a140f;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .frame.portrait .img-box { aspect-ratio: 3 / 4; }
-    .frame.landscape .img-box { aspect-ratio: 4 / 3; }
-    .frame.square .img-box { aspect-ratio: 1 / 1; }
-    .img-box img {
-      width: 100%; height: 100%; object-fit: cover; object-position: center center;
-      display: block;
-    }
-    .frame-caption {
-      margin-top: 10px; text-align: center; font-size: 0.9rem;
-      color: var(--cream); opacity: 0.85; font-style: italic; width: 100%;
-    }
-    @keyframes sway {
-      0%, 100% { transform: rotate(var(--rot, 0deg)); }
-      50% { transform: rotate(calc(var(--rot, 0deg) + 1.2deg)); }
-    }
-    .frame.sway { animation: sway 4.5s ease-in-out infinite; }
-    .frame:nth-child(1) { --rot: -1.5deg; animation-delay: 0s; }
-    .frame:nth-child(2) { --rot: 1.2deg; animation-delay: 0.7s; }
-    .frame:nth-child(3) { --rot: -0.8deg; animation-delay: 1.4s; }
-    .frame:nth-child(4) { --rot: 1.6deg; animation-delay: 2.1s; }
-    .frame:nth-child(5) { --rot: -1.1deg; animation-delay: 2.8s; }
-    .frame:nth-child(6) { --rot: 0.9deg; animation-delay: 3.5s; }
-    .modal {
-      display: none; position: fixed; inset: 0; z-index: 100;
-      background: rgba(10,8,5,0.92); align-items: center; justify-content: center; padding: 1rem;
-    }
-    .modal.open { display: flex; }
-    .modal-content {
-      position: relative; width: min(900px, 96vw); background: var(--wood);
-      border: 4px solid var(--gold); box-shadow: 0 20px 60px rgba(0,0,0,0.8); overflow: hidden;
-    }
-    .modal-content iframe {
-      width: 100%; aspect-ratio: 16/9; display: block; background: #000; border: none;
-    }
-    .modal-close {
-      position: absolute; top: 8px; right: 12px; background: var(--gold); color: var(--wood);
-      border: none; width: 36px; height: 36px; font-size: 1.4rem; line-height: 1;
-      cursor: pointer; border-radius: 50%; z-index: 2; font-family: inherit;
-    }
-    .modal-title { padding: 0.7rem 1rem; text-align: center; font-size: 1.1rem; color: var(--gold); }
-    footer {
-      position: relative; z-index: 2; text-align: center; padding: 1.5rem;
-      font-size: 0.85rem; opacity: 0.7; border-top: 1px solid rgba(201,162,39,0.25);
-    }
-    footer a { color: var(--gold); text-decoration: none; }
-  </style>
-</head>
-<body>
-  <div class="ornament-border"></div>
-
-  <header>
-    <div class="portrait-wrap">
-      <!-- Портрет Нико Николадзе работы Николоза Сагарадзе (из каталога Национального архива Грузии) -->
-      <img class="portrait"
-           src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Niko_Nikoladze11.jpg/500px-Niko_Nikoladze11.jpg"
-           alt="ნიკო ნიკოლაძე — ფოტო ნიკოლოზ საღარაძისა"
-           title="Niko Nikoladze, photo by Nikoloz Sagaradze. National Archives of Georgia">
-    </div>
-    <h1>ნიკოლოზ საღარაძე</h1>
-    <p class="subtitle">Nikoloz Sagaradze · Николоз Сагарадзе</p>
-    <p class="years">1877 — 1963 · ქუთაისი · Кутаиси</p>
-    <p class="intro">
-      Фотограф Кутаиси конца XIX — начала XX века. Ученик и продолжатель дела Александра Михайлова.
-      Сохранил уникальные портреты жителей Западной Грузии, актёров, писателей и общественных деятелей.
-      В 1947 году передал архив Национальному архиву Грузии.
-    </p>
-  </header>
-
-  <main class="gallery" id="gallery">
-    <!-- Реальные фото из коллекции Сагарадзе / Национального архива (через Wikimedia) -->
-    <div class="gallery-item-wrapper">
-      <div class="lamp-container">
-        <button class="lamp-btn" title="Включить/выключить подсветку">🔌</button>
-      </div>
-      <article class="frame portrait sway" data-video="https://www.youtube.com/embed/drq-nqBOD-0" data-title="Коллекция Николоза Сагарадзе — Национальный архив Грузии">
-        <div class="img-box">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Niko_Nikoladze11.jpg/600px-Niko_Nikoladze11.jpg"
-               alt="Niko Nikoladze" loading="lazy">
-        </div>
-        <p class="frame-caption">ნიკო ნიკოლაძე · Niko Nikoladze<br>фото Николоза Сагарадзе</p>
-      </article>
-    </div>
-
-    <div class="gallery-item-wrapper">
-      <div class="lamp-container">
-        <button class="lamp-btn" title="Включить/выключить подсветку">🔌</button>
-      </div>
-      <article class="frame landscape sway" data-video="https://www.youtube.com/embed/BzImOQHdrnE" data-title="Грузинский фотограф, запечатлевший этнографию Западной Грузии">
-        <div class="img-box">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Niko_Nikoladze%2C_a_prominent_Georgian_statesman%2C_with_his_family_in_1902.jpg/800px-Niko_Nikoladze%2C_a_prominent_Georgian_statesman%2C_with_his_family_in_1902.jpg"
-               alt="Niko Nikoladze with family" loading="lazy">
-        </div>
-        <p class="frame-caption">ნიკო ნიკოლაძე ოჯახთან ერთად · 1902<br>из фондов Национального архива</p>
-      </article>
-    </div>
-
-    <div class="gallery-item-wrapper">
-      <div class="lamp-container">
-        <button class="lamp-btn" title="Включить/выключить подсветку">🔌</button>
-      </div>
-      <article class="frame square sway" data-video="https://www.youtube.com/embed/drq-nqBOD-0" data-title="Фотоколлекция Сагарадзе">
-        <div class="img-box">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Niko_Nikoladze_1878.jpg/600px-Niko_Nikoladze_1878.jpg"
-               alt="Niko Nikoladze 1878" loading="lazy">
-        </div>
-        <p class="frame-caption">ნიკო ნიკოლაძე · 1878<br>архив Грузии</p>
-      </article>
-    </div>
-
-    <div class="gallery-item-wrapper">
-      <div class="lamp-container">
-        <button class="lamp-btn" title="Включить/выключить подсветку">🔌</button>
-      </div>
-      <article class="frame portrait sway" data-video="https://www.youtube.com/embed/BzImOQHdrnE" data-title="Этнографические снимки">
-        <div class="img-box">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Niko_Nikoladze11.jpg/550px-Niko_Nikoladze11.jpg"
-               alt="Портрет" loading="lazy">
-        </div>
-        <p class="frame-caption">პორტრეტი · Портрет из ателье<br>Михайлова–Сагарадзе, Кутаиси</p>
-      </article>
-    </div>
-
-    <div class="gallery-item-wrapper">
-      <div class="lamp-container">
-        <button class="lamp-btn" title="Включить/выключить подсветку">🔌</button>
-      </div>
-      <article class="frame landscape sway" data-video="https://www.youtube.com/embed/drq-nqBOD-0" data-title="Альбомы ателье">
-        <div class="img-box">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Niko_Nikoladze%2C_a_prominent_Georgian_statesman%2C_with_his_family_in_1902.jpg/850px-Niko_Nikoladze%2C_a_prominent_Georgian_statesman%2C_with_his_family_in_1902.jpg"
-               alt="Семья Николадзе" loading="lazy">
-        </div>
-        <p class="frame-caption">ოჯახური პორტრეტი · Семейный портрет<br>начало XX века</p>
-      </article>
-    </div>
-
-    <div class="gallery-item-wrapper">
-      <div class="lamp-container">
-        <button class="lamp-btn" title="Включить/выключить подсветку">🔌</button>
-      </div>
-      <article class="frame portrait sway" data-video="https://www.youtube.com/embed/BzImOQHdrnE" data-title="Публичные деятели">
-        <div class="img-box">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Niko_Nikoladze_1878.jpg/580px-Niko_Nikoladze_1878.jpg"
-               alt="Niko Nikoladze" loading="lazy">
-        </div>
-        <p class="frame-caption">საზოგადო მოღვაწე · Общественный деятель<br>фото из коллекции Сагарадзе</p>
-      </article>
-    </div>
-  </main>
-
-  <footer>
-    Музейный сайт · Фотографии из коллекции Национального архива Грузии<br>
-    <a href="https://archive.gov.ge/ge/nikoloz-sagharadzis-fotokolektsia-1" target="_blank" rel="noopener">archive.gov.ge — полная коллекция Николоза Сагарадзе</a>
-  </footer>
-
-  <div class="modal" id="modal" role="dialog" aria-modal="true">
-    <div class="modal-content">
-      <button class="modal-close" id="closeModal" aria-label="Закрыть">×</button>
-      <div class="modal-title" id="modalTitle"></div>
-      <div id="videoContainer"></div>
-    </div>
-  </div>
-
-  <script>
-    const gallery = document.getElementById('gallery');
-    const modal = document.getElementById('modal');
-    const videoContainer = document.getElementById('videoContainer');
-    const modalTitle = document.getElementById('modalTitle');
-    const closeBtn = document.getElementById('closeModal');
-
-    gallery.addEventListener('click', (e) => {
-      // Обработка клика по лампе (включение/выключение подсветки)
-      const lampBtn = e.target.closest('.lamp-btn');
-      if (lampBtn) {
-        const wrapper = lampBtn.closest('.gallery-item-wrapper');
-        const frame = wrapper.querySelector('.frame');
-        frame.classList.toggle('lit');
-        lampBtn.textContent = frame.classList.contains('lit') ? '💡' : '🔌';
-        return;
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ателье Сагарадзе</title>
+    <meta name="description" content="Светопись Николоза Сагарадзе. Кутаиси, Центральное ателье на Воронцовской.">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+      /* Добавлено управление включением/выключением подсветки от лампы */
+      .plate-hit:not(.lit) .frame img {
+        filter: brightness(0.6) contrast(1.05);
+        transition: filter 0.4s ease, box-shadow 0.4s ease;
       }
+      .plate-hit.lit .frame img {
+        filter: brightness(1) contrast(1.05);
+        box-shadow: 0 0 25px rgba(255, 230, 150, 0.6);
+        transition: filter 0.4s ease, box-shadow 0.4s ease;
+      }
+      .lamp {
+        cursor: pointer;
+        transition: transform 0.2s ease;
+      }
+      .lamp:hover {
+        transform: scale(1.1);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="salon">
+      <header class="mast">
+        <p class="kicker enter">Свѣтопись · Кутаисъ</p>
+        <p class="geo enter" lang="ka">ნიკოლოზ საღარაძე</p>
+        <figure class="medallion enter">
+          <div class="oval">
+            <div class="oval-mat">
+              <div class="oval-opening">
+                <img src="atelier/portrait.jpg" alt="Николоз Сагарадзе, портрет 1930 года" loading="lazy">
+              </div>
+            </div>
+          </div>
+          <figcaption>Николоз Сагарадзе, 1930</figcaption>
+        </figure>
+        <h1 class="enter">Николоз Сагарадзе</h1>
+        <p class="dates enter">1 мая 1877, Хони — 1963</p>
+        <p class="place enter">Центральное ателье · Воронцовская улица</p>
+      </header>
 
-      // Обработка клика по карточке (открытие видео)
-      const frame = e.target.closest('.frame');
-      if (!frame) return;
-      const videoSrc = frame.dataset.video;
-      const title = frame.dataset.title || '';
-      modalTitle.textContent = title;
-      videoContainer.innerHTML = `<iframe src="${videoSrc}?autoplay=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-      modal.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    });
+      <article class="label enter">
+        <p>
+          Николоз Сагарадзе родился в Хони и в 1889 году, рано оставшись
+          сиротой, был привезён в кутаисскую гимназию. В двенадцать лет отчим
+          отвёл его в фотоателье своего зятя — Александра Михайлова. Мальчик
+          оставил учение и стал учеником, потом помощником.
+        </p>
+        <p>
+          После смерти Михайлова в 1912 году Сагарадзе продолжил мастерскую.
+          До 1930-х он работал в «Центральном ателье» на Воронцовской: студийные
+          портреты Западной Грузии, панорамы, актёры Кутаисского театра. Рядом
+          в той же истории — Мелкон Качукашвили. В 1934 году мастер переехал в
+          Тбилиси, служил в «Союзфото», затем десять лет учил во Дворце
+          пионеров. В 1947-м лично передал Национальному архиву стеклянные
+          негативы и пятнадцать альбомов. Собрание Михайлова — Сагарадзе хранит
+          лица Имерети рубежа веков.
+        </p>
+        <p class="label-note">
+          Рамки чуть качаются по очереди, как на гвоздях. «У колонны» оживает
+          при наведении, а на телефоне — когда рамка оказывается на экране.
+          Ролик остаётся внутри паспарту. Подлинники 1880–1917 годов лежат в
+          <a href="https://archive.gov.ge/ge/nikoloz-sagharadzis-fotokolektsia-1" rel="noreferrer" target="_blank">Национальном архиве Грузии</a>.
+        </p>
+      </article>
 
-    function closeModal() {
-      modal.classList.remove('open');
-      videoContainer.innerHTML = '';
-      document.body.style.overflow = '';
-    }
-    closeBtn.addEventListener('click', closeModal);
-    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
-  </script>
-</body>
+      <div class="rail" aria-hidden="true"></div>
+
+      <section class="hang" aria-label="Стена ателье">
+        <figure class="plate" data-span="third" style="--i:0;--ratio:3 / 4">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/hat.jpg" alt="Женщина в широкополой шляпе и меховом воротнике, стеклянный негатив" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip">
+              <span class="slip-title">Шляпа и мех</span>
+              <span class="slip-meta">кабинет-портрет</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:1;--ratio:3 / 4">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/papakha.jpg" alt="Пожилой мужчина в папахе и черкеске с газырями" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip">
+              <span class="slip-title">Папаха</span>
+              <span class="slip-meta">студийный тип</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:2;--ratio:4 / 5">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/profile.jpg" alt="Молодой человек в бабочке, опёршийся на спинку стула" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip">
+              <span class="slip-title">Профиль</span>
+              <span class="slip-meta">кабинет-портрет</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="wide" style="--i:3;--ratio:3 / 2">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/newspapers.jpg" alt="Мужчина с газетой сидит на камне перед стеной из афиш и газет" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip">
+              <span class="slip-title">Газеты</span>
+              <span class="slip-meta">задник ателье</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="half" style="--i:4;--ratio:5 / 4">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/fireplace.jpg" alt="Молодой человек в полосатом костюме сидит в резном кресле у расписного камина" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip">
+              <span class="slip-title">У камина</span>
+              <span class="slip-meta">кабинет-портрет</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="half" style="--i:5;--ratio:4 / 5">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/chair.jpg" alt="Мужчина сидит, облокотившись на резной стул" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip">
+              <span class="slip-title">Резное кресло</span>
+              <span class="slip-meta">кабинет-портрет</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:6;--ratio:3 / 4">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/standing.jpg" alt="Мужчина в тёмном сюртуке и светлом жилете стоит, держа руки в карманах" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip">
+              <span class="slip-title">Сюртук</span>
+              <span class="slip-meta">в рост</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:7;--ratio:3 / 4">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/curls.jpg" alt="Сидящий мужчина с пышными волосами в двубортном сюртуке" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip">
+              <span class="slip-title">Двубортный</span>
+              <span class="slip-meta">кабинет-портрет</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:8;--ratio:4 / 5">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/lean.jpg" alt="Мужчина опирается скрещёнными руками на спинку стула" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip">
+              <span class="slip-title">На спинку</span>
+              <span class="slip-meta">кабинет-портрет</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="wide" style="--i:9;--ratio:3 / 2">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/procession.jpg" alt="Группа людей и конь у дома, девочки держат рамку с листом" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip">
+              <span class="slip-title">Шествие</span>
+              <span class="slip-meta">улица</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:10;--ratio:3 / 4" data-motion="atelier/actress.mp4">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/actress.jpg" alt="Женщина в светлом платье и драпировке стоит у нарисованной колонны и занавеса" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip">
+              <span class="slip-title">У колонны</span>
+              <span class="slip-meta">живая картина</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:11;--ratio:3 / 4">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/reclining.jpg" alt="Женщина в розовом платье полулежит в резном кресле на ковре" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip">
+              <span class="slip-title">В кресле</span>
+              <span class="slip-meta">живая картина</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:12;--ratio:4 / 5">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/father.jpg" alt="Мужчина и девочка в белом платье у стульев на фоне расписного задника" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip">
+              <span class="slip-title">Отец и дочь</span>
+              <span class="slip-meta">ателье</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="wide" style="--i:13;--ratio:4 / 3">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/family.jpg" alt="Семейный портрет: родители, две девочки и мальчик" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip">
+              <span class="slip-title">Семья</span>
+              <span class="slip-meta">групповой портрет</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="wide" style="--i:14;--ratio:3 / 2">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/courtyard.jpg" alt="Люди у телеги с бочкой и лошадью во дворе деревянного дома" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip">
+              <span class="slip-title">Двор</span>
+              <span class="slip-meta">улица</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="half" style="--i:15;--ratio:4 / 5">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/garden.jpg" alt="Большая группа мужчин за столом в кипарисовой аллее" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip">
+              <span class="slip-title">В саду</span>
+              <span class="slip-meta">собрание</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="half" style="--i:16;--ratio:2 / 3">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/street.jpg" alt="Люди, конь и две девочки с рамкой у каменного дома" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip">
+              <span class="slip-title">У коня</span>
+              <span class="slip-meta">улица</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="half" style="--i:17;--ratio:3 / 4">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/table.jpg" alt="Мужчина сидит за круглым столом с раковиной на фоне расписного задника" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip">
+              <span class="slip-title">Круглый стол</span>
+              <span class="slip-meta">кабинет-портрет</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="half" style="--i:18;--ratio:3 / 4">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/crack.jpg" alt="Повреждённый стеклянный негатив: женщина полулежит в резном кресле" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip">
+              <span class="slip-title">Треснувшая пластинка</span>
+              <span class="slip-meta">стеклянный негатив</span>
+            </span>
+          </div>
+        </figure>
+      </section>
+
+      <footer class="colophon">
+        <p>Кутаиси · Хони · Тбилиси</p>
+        <p>Михайлов · Качукашвили · Сагарадзе</p>
+      </footer>
+    </main>
+    <script src="salon.js"></script>
+    <script>
+      // Скрипт для включения/выключения подсветки по клику на лампу
+      document.addEventListener('click', (e) => {
+        const lamp = e.target.closest('.lamp');
+        if (!lamp) return;
+        const plateHit = lamp.closest('.plate-hit');
+        if (plateHit) {
+          plateHit.classList.toggle('lit');
+        }
+      });
+    </script>
+  </body>
 </html>
