@@ -5,8 +5,11 @@ function bind(plate) {
   const src = plate.dataset.motion;
   if (!src) return;
   
-  // ИСПРАВЛЕНО: теперь ищет либо .oval-opening, либо .opening
-  const opening = plate.querySelector(".oval-opening, .opening");
+  // ИСПРАВЛЕНИЕ ТУТ: Прямая и безопасная проверка классов по очереди
+  let opening = plate.querySelector(".opening");
+  if (!opening) {
+    opening = plate.querySelector(".oval-opening");
+  }
   
   const meta = plate.querySelector(".slip-meta");
   const stillMeta = meta ? meta.textContent : "";
