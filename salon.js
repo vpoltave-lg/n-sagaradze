@@ -5,11 +5,14 @@ function bind(plate) {
   const src = plate.dataset.motion;
   if (!src) return;
   const opening = plate.querySelector(".opening");
+  const meta = plate.querySelector(".slip-meta");
+  const stillMeta = meta ? meta.textContent : "";
   let video = null;
   let failed = false;
 
   function stop() {
     plate.classList.remove("is-live");
+    if (meta && !failed) meta.textContent = stillMeta;
     if (!video) return;
     video.pause();
     video.remove();
@@ -21,27 +24,24 @@ function bind(plate) {
     if (!video) {
       video = document.createElement("video");
       video.className = "plate-video";
-      
-      // Набор обязательных атрибутов для автоплея на мобильных и десктопах:
       video.muted = true;
-      video.autoplay = true; 
       video.loop = true;
       video.playsInline = true;
-      video.setAttribute("muted", ""); // дублируем для надежности в Safari
-      video.setAttribute("playsinline", "");
-      
+      video.autoplay = true;
+      video.src = src;
       video.addEventListener("playing", () => {
         video.classList.add("is-on");
       });
       video.addEventListener("error", () => {
         failed = true;
         stop();
+        if (meta) meta.textContent = "Плёнка ещё в архиве";
       });
-      
-      video.src = src; // Присваиваем src ПОСЛЕ всех настроек
       opening.appendChild(video);
     }
     plate.classList.add("is-live");
+    if (meta) meta.textContent = "Ожило";
+    video.play().catch(() => {});
   }
 
   plate.addEventListener("mouseenter", () => {
