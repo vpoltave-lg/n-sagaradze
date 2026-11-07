@@ -4,15 +4,12 @@ const reduceQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 function bind(plate) {
   const src = plate.dataset.motion;
   if (!src) return;
-  const opening = plate.querySelector(".opening");
-  const meta = plate.querySelector(".slip-meta");
-  const stillMeta = meta ? meta.textContent : "";
+  const opening = plate.querySelector(".opening .oval-opening");
   let video = null;
   let failed = false;
 
   function stop() {
     plate.classList.remove("is-live");
-    if (meta && !failed) meta.textContent = stillMeta;
     if (!video) return;
     video.pause();
     video.remove();
@@ -27,23 +24,30 @@ function bind(plate) {
       video.muted = true;
       video.loop = true;
       video.playsInline = true;
-      video.autoplay = true;
+      // Убрано autoplay = true, чтобы контролировать запуск строго через .play()
       video.src = src;
+      
       video.addEventListener("playing", () => {
         video.classList.add("is-on");
       });
+      
       video.addEventListener("error", () => {
         failed = true;
         stop();
-        if (meta) meta.textContent = "Плёнка ещё в архиве";
       });
+      
       opening.appendChild(video);
     }
+    
     plate.classList.add("is-live");
-    if (meta) meta.textContent = "Ожило";
-    video.play().catch(() => {});
+    
+    // Безопасный запуск видео
+    video.play().catch((err) => {
+      console.warn("Video play prevented:", err);
+    });
   }
 
+  // Обработчики для десктопов (мышь)
   plate.addEventListener("mouseenter", () => {
     if (fineQuery.matches) play();
   });
@@ -51,8 +55,10 @@ function bind(plate) {
     if (fineQuery.matches) stop();
   });
 
+  // Обработчик для мобильных (скролл)
   const observer = new IntersectionObserver(
     ([entry]) => {
+      // Если устройство с мышью ИЛИ включено уменьшение движения — автоплей по скроллу не нужен
       if (fineQuery.matches || reduceQuery.matches) return;
       if (entry.isIntersecting) play();
       else stop();
@@ -61,8 +67,9 @@ function bind(plate) {
   );
   observer.observe(plate);
 
+  // Сброс при изменении системных настроек
   const halt = () => {
-    if (reduceQuery.matches) stop();
+    if (reduceQuery.matches || !fineQuery.matches) stop();
   };
   fineQuery.addEventListener("change", halt);
   reduceQuery.addEventListener("change", halt);
