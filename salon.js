@@ -4,7 +4,7 @@ const reduceQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 function bind(plate) {
   const src = plate.dataset.motion;
   if (!src) return;
-  const opening = plate.querySelector(".opening");
+  const opening = plate.querySelector(".opening .oval-opening");
   const meta = plate.querySelector(".slip-meta");
   const stillMeta = meta ? meta.textContent : "";
   let video = null;
@@ -35,12 +35,12 @@ function bind(plate) {
       video.addEventListener("error", () => {
         failed = true;
         stop();
-        if (meta) meta.textContent = "Плёнка ещё в архиве";
+        if (meta) meta.textContent = "";
       });
       opening.appendChild(video);
     }
     plate.classList.add("is-live");
-    if (meta) meta.textContent = "Ожило";
+    if (meta) meta.textContent = "";
     video.play().catch(() => {});
   }
 
