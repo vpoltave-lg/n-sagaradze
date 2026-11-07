@@ -5,11 +5,8 @@ function bind(plate) {
   const src = plate.dataset.motion;
   if (!src) return;
   
-  // ИСПРАВЛЕНИЕ ТУТ: Прямая и безопасная проверка классов по очереди
-  let opening = plate.querySelector(".opening");
-  if (!opening) {
-    opening = plate.querySelector(".oval-opening");
-  }
+  // Безпечний вибір: шукаємо .opening, якщо немає — .oval-opening
+  const opening = plate.querySelector(".opening") || plate.querySelector(".oval-opening");
   
   const meta = plate.querySelector(".slip-meta");
   const stillMeta = meta ? meta.textContent : "";
