@@ -4,7 +4,7 @@ const reduceQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 function bind(plate) {
   const src = plate.dataset.motion;
   if (!src) return;
-  const opening = plate.querySelector(".opening .oval-opening");
+  const opening = plate.querySelector(".opening, .oval-opening");
   const meta = plate.querySelector(".slip-meta");
   const stillMeta = meta ? meta.textContent : "";
   let video = null;
