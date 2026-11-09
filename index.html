@@ -18,6 +18,21 @@
         box-shadow: 0 14px 36px rgba(0,0,0,0.7), 0 -10px 25px rgba(255, 220, 130, 0.35);
         transition: box-shadow 0.4s ease;
       }
+      .slip-title,
+      .slip-more {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .slip-title { -webkit-line-clamp: 1; }
+      .slip-more { -webkit-line-clamp: 2; }
+      .slip.is-open .slip-title,
+      .slip.is-open .slip-more {
+        display: block;
+        -webkit-line-clamp: unset;
+        overflow: visible;
+      }
+      .slip { cursor: pointer; }
     </style>
   </head>
   <body>
@@ -58,330 +73,1895 @@
       <div class="rail" aria-hidden="true"></div>
 
       <section class="hang" aria-label="Стена ателье">
-        <figure class="plate" data-span="third" style="--i:0;--ratio:3 / 4">
+        <figure class="plate" data-span="third" style="--i:0">
           <div class="plate-hit is-still">
             <span class="nail" aria-hidden="true"></span>
             <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
             <span class="frame">
               <span class="frame-well">
                 <span class="opening">
-                  <img src="atelier/hat.jpg" alt="Женщина в широкополой шляпе и меховом воротнике, стеклянный негатив" loading="lazy">
+                  <img src="atelier/1000002201-0.5x.gif" alt="1000002201-0.5x" loading="lazy">
                 </span>
               </span>
             </span>
-            <span class="slip">
-              <span class="slip-title">Шляпа и мех</span>
-              <span class="slip-meta">кабинет-портрет</span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">1000002201-0.5x</span>
             </span>
           </div>
         </figure>
-        <figure class="plate" data-span="third" style="--i:1;--ratio:3 / 4">
+        <figure class="plate" data-span="third" style="--i:1">
           <div class="plate-hit is-still">
             <span class="nail" aria-hidden="true"></span>
             <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
             <span class="frame">
               <span class="frame-well">
                 <span class="opening">
-                  <img src="atelier/papakha.jpg" alt="Пожилой мужчина в папахе и черкеске с газырями" loading="lazy">
+                  <img src="atelier/1793975962660.gif" alt="1793975962660" loading="lazy">
                 </span>
               </span>
             </span>
-            <span class="slip">
-              <span class="slip-title">Папаха</span>
-              <span class="slip-meta">студийный тип</span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">1793975962660</span>
             </span>
           </div>
         </figure>
-        <figure class="plate" data-span="third" style="--i:2;--ratio:4 / 5">
+        <figure class="plate" data-span="third" style="--i:2">
           <div class="plate-hit is-still">
             <span class="nail" aria-hidden="true"></span>
             <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
             <span class="frame">
               <span class="frame-well">
                 <span class="opening">
-                  <img src="atelier/profile.jpg" alt="Молодой человек в бабочке, опёршийся на спинку стула" loading="lazy">
+                  <img src="atelier/%5B1880-1917%5D%20Actor%20Taso%20Abashidze%20Nikoloz%20Sagharadze%27s%20photo%20collection.jpg" alt="[1880-1917] Actor Taso Abashidze Nikoloz Sagharadze&#x27;s photo collection" loading="lazy">
                 </span>
               </span>
             </span>
-            <span class="slip">
-              <span class="slip-title">Профиль</span>
-              <span class="slip-meta">кабинет-портрет</span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">[1880-1917] Actor Taso Abashidze Nikoloz</span>
+              <span class="slip-more">Sagharadze&#x27;s photo collection</span>
             </span>
           </div>
         </figure>
-        <figure class="plate" data-span="wide" style="--i:3;--ratio:3 / 2">
+        <figure class="plate" data-span="third" style="--i:3">
           <div class="plate-hit is-still">
             <span class="nail" aria-hidden="true"></span>
             <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
             <span class="frame">
               <span class="frame-well">
                 <span class="opening">
-                  <img src="atelier/newspapers.jpg" alt="Мужчина с газетой сидит на камне перед стеной из афиш и газет" loading="lazy">
+                  <img src="atelier/%5B1880-1917%5D%20Actor%20Vaso%20Abashidze%20Nikoloz%20Sagharadze%27s%20photo%20collection.jpg" alt="[1880-1917] Actor Vaso Abashidze Nikoloz Sagharadze&#x27;s photo collection" loading="lazy">
                 </span>
               </span>
             </span>
-            <span class="slip">
-              <span class="slip-title">Газеты</span>
-              <span class="slip-meta">задник ателье</span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">[1880-1917] Actor Vaso Abashidze Nikoloz</span>
+              <span class="slip-more">Sagharadze&#x27;s photo collection</span>
             </span>
           </div>
         </figure>
-        <figure class="plate" data-span="half" style="--i:4;--ratio:5 / 4">
+        <figure class="plate" data-span="third" style="--i:4">
           <div class="plate-hit is-still">
             <span class="nail" aria-hidden="true"></span>
             <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
             <span class="frame">
               <span class="frame-well">
                 <span class="opening">
-                  <img src="atelier/fireplace.jpg" alt="Молодой человек в полосатом костюме сидит в резном кресле у расписного камина" loading="lazy">
+                  <img src="atelier/%5B1880-1917%5D%20Nun%20Nikoloz%20Sagharadze%27s%20photo%20collection.jpg" alt="[1880-1917] Nun Nikoloz Sagharadze&#x27;s photo collection" loading="lazy">
                 </span>
               </span>
             </span>
-            <span class="slip">
-              <span class="slip-title">У камина</span>
-              <span class="slip-meta">кабинет-портрет</span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">[1880-1917] Nun Nikoloz Sagharadze&#x27;s photo</span>
+              <span class="slip-more">collection</span>
             </span>
           </div>
         </figure>
-        <figure class="plate" data-span="half" style="--i:5;--ratio:4 / 5">
+        <figure class="plate" data-span="third" style="--i:5">
           <div class="plate-hit is-still">
             <span class="nail" aria-hidden="true"></span>
             <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
             <span class="frame">
               <span class="frame-well">
                 <span class="opening">
-                  <img src="atelier/chair.jpg" alt="Мужчина сидит, облокотившись на резной стул" loading="lazy">
+                  <img src="atelier/Actor%20Aleksande%20%28Sandro%29%20Kalabegishvili%20%281883-1937%29.jpg" alt="Actor Aleksande (Sandro) Kalabegishvili (1883-1937)" loading="lazy">
                 </span>
               </span>
             </span>
-            <span class="slip">
-              <span class="slip-title">Резное кресло</span>
-              <span class="slip-meta">кабинет-портрет</span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Actor Aleksande (Sandro) Kalabegishvili</span>
+              <span class="slip-more">(1883-1937)</span>
             </span>
           </div>
         </figure>
-        <figure class="plate" data-span="third" style="--i:6;--ratio:3 / 4">
+        <figure class="plate" data-span="third" style="--i:6">
           <div class="plate-hit is-still">
             <span class="nail" aria-hidden="true"></span>
             <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
             <span class="frame">
               <span class="frame-well">
                 <span class="opening">
-                  <img src="atelier/standing.jpg" alt="Мужчина в тёмном сюртуке и светлом жилете стоит, держа руки в карманах" loading="lazy">
+                  <img src="atelier/Actor%20Aleksande%20Imedashvili%20%281882-1942%29.jpg" alt="Actor Aleksande Imedashvili (1882-1942)" loading="lazy">
                 </span>
               </span>
             </span>
-            <span class="slip">
-              <span class="slip-title">Сюртук</span>
-              <span class="slip-meta">в рост</span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Actor Aleksande Imedashvili (1882-1942)</span>
             </span>
           </div>
         </figure>
-        <figure class="plate" data-span="third" style="--i:7;--ratio:3 / 4">
+        <figure class="plate" data-span="third" style="--i:7">
           <div class="plate-hit is-still">
             <span class="nail" aria-hidden="true"></span>
             <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
             <span class="frame">
               <span class="frame-well">
                 <span class="opening">
-                  <img src="atelier/curls.jpg" alt="Сидящий мужчина с пышными волосами в двубортном сюртуке" loading="lazy">
+                  <img src="atelier/Actor%20and%20director%20Vladimir%20%28Lado%29%20Aleksi-Meskhishvili%20%281857-1920%29.jpg" alt="Actor and director Vladimir (Lado) Aleksi-Meskhishvili (1857-1920)" loading="lazy">
                 </span>
               </span>
             </span>
-            <span class="slip">
-              <span class="slip-title">Двубортный</span>
-              <span class="slip-meta">кабинет-портрет</span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Actor and director Vladimir (Lado)</span>
+              <span class="slip-more">Aleksi-Meskhishvili (1857-1920)</span>
             </span>
           </div>
         </figure>
-        <figure class="plate" data-span="third" style="--i:8;--ratio:4 / 5">
+        <figure class="plate" data-span="third" style="--i:8">
           <div class="plate-hit is-still">
             <span class="nail" aria-hidden="true"></span>
             <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
             <span class="frame">
               <span class="frame-well">
                 <span class="opening">
-                  <img src="atelier/lean.jpg" alt="Мужчина опирается скрещёнными руками на спинку стула" loading="lazy">
+                  <img src="atelier/Actor%20Andria%20%28Andro%29%20Murusidze%20%281885-1962%29.jpg" alt="Actor Andria (Andro) Murusidze (1885-1962)" loading="lazy">
                 </span>
               </span>
             </span>
-            <span class="slip">
-              <span class="slip-title">На спинку</span>
-              <span class="slip-meta">кабинет-портрет</span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Actor Andria (Andro) Murusidze (1885-1962)</span>
             </span>
           </div>
         </figure>
-        <figure class="plate" data-span="wide" style="--i:9;--ratio:3 / 2">
+        <figure class="plate" data-span="third" style="--i:9">
           <div class="plate-hit is-still">
             <span class="nail" aria-hidden="true"></span>
             <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
             <span class="frame">
               <span class="frame-well">
                 <span class="opening">
-                  <img src="atelier/procession.jpg" alt="Группа людей и конь у дома, девочки держат рамку с листом" loading="lazy">
+                  <img src="atelier/Actor%20Grigol%20Charkviani%20%281870-1933%29.jpg" alt="Actor Grigol Charkviani (1870-1933)" loading="lazy">
                 </span>
               </span>
             </span>
-            <span class="slip">
-              <span class="slip-title">Шествие</span>
-              <span class="slip-meta">улица</span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Actor Grigol Charkviani (1870-1933)</span>
             </span>
           </div>
         </figure>
-        <!-- Обов'язково додайте атрибут data-motion з точним шляхом до відео! -->
-<figure class="plate" data-motion="atelier/actress.mp4" data-span="third" style="--i:7;--ratio:3 / 4">
-  <div class="plate-hit is-still">
-    <span class="nail" aria-hidden="true"></span>
-    <span class="lamp" aria-hidden="true">
-      <span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span>
-    </span>
-    <span class="frame">
-      <span class="frame-well">
-        <span class="opening">
-          <!-- Початкова картинка актриси -->
-          <img src="atelier/actress.jpg" alt="Актриса Кутаїського театру" loading="lazy">
-        </span>
-      </span>
-    </span>
-    <span class="slip">
-      <span class="slip-title">Actress Nino Davitashvili</span>
-      <span class="slip-meta">in the role of Ophelia from the play "Hamlet"</span>
-    </span>
-  </div>
-</figure>
-        <figure class="plate" data-motion="atelier/lady_v_kresle.mp4" data-span="third" style="--i:11;--ratio:3 / 4">
+        <figure class="plate" data-span="third" style="--i:10">
           <div class="plate-hit is-still">
             <span class="nail" aria-hidden="true"></span>
             <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
             <span class="frame">
               <span class="frame-well">
                 <span class="opening">
-                  <img src="atelier/reclining.jpg" alt="Женщина в розовом платье полулежит в резном кресле на ковре" loading="lazy">
+                  <img src="atelier/Actor%20Maro%20Mdivani%201908.jpg" alt="Actor Maro Mdivani 1908" loading="lazy">
                 </span>
               </span>
             </span>
-            <span class="slip">
-              <span class="slip-title">Nutsa Chkheidze</span>
-              <span class="slip-meta"> in the role of Margarita Gauthier</span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Actor Maro Mdivani 1908</span>
             </span>
           </div>
         </figure>
-        <figure class="plate" data-span="third" style="--i:12;--ratio:4 / 5">
+        <figure class="plate" data-span="third" style="--i:11">
           <div class="plate-hit is-still">
             <span class="nail" aria-hidden="true"></span>
             <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
             <span class="frame">
               <span class="frame-well">
                 <span class="opening">
-                  <img src="atelier/father.jpg" alt="Мужчина и девочка в белом платье у стульев на фоне расписного задника" loading="lazy">
+                  <img src="atelier/Actor%20Nemo%20%28Mikheil%20Janoev%29%20in%20the%20role%20of%20Kobo%2C%20from%20the%20play%20%22Unfortunate%20Day%22.jpg" alt="Actor Nemo (Mikheil Janoev) in the role of Kobo, from the play &quot;Unfortunate Day&quot;" loading="lazy">
                 </span>
               </span>
             </span>
-            <span class="slip">
-              <span class="slip-title">Отец и дочь</span>
-              <span class="slip-meta">ателье</span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Actor Nemo (Mikheil Janoev) in the role of</span>
+              <span class="slip-more">Kobo, from the play &quot;Unfortunate Day&quot;</span>
             </span>
           </div>
         </figure>
-        <figure class="plate" data-span="wide" style="--i:13;--ratio:4 / 3">
+        <figure class="plate" data-span="third" style="--i:12">
           <div class="plate-hit is-still">
             <span class="nail" aria-hidden="true"></span>
             <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
             <span class="frame">
               <span class="frame-well">
                 <span class="opening">
-                  <img src="atelier/family.jpg" alt="Семейный портрет: родители, две девочки и мальчик" loading="lazy">
+                  <img src="atelier/Actor%20Niko%20%28Nikoloz%29%20Gvaradze%20%281883-1960%29.jpg" alt="Actor Niko (Nikoloz) Gvaradze (1883-1960)" loading="lazy">
                 </span>
               </span>
             </span>
-            <span class="slip">
-              <span class="slip-title">Семья</span>
-              <span class="slip-meta">групповой портрет</span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Actor Niko (Nikoloz) Gvaradze (1883-1960)</span>
             </span>
           </div>
         </figure>
-        <figure class="plate" data-span="wide" style="--i:14;--ratio:3 / 2">
+        <figure class="plate" data-span="third" style="--i:13">
           <div class="plate-hit is-still">
             <span class="nail" aria-hidden="true"></span>
             <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
             <span class="frame">
               <span class="frame-well">
                 <span class="opening">
-                  <img src="atelier/courtyard.jpg" alt="Люди у телеги с бочкой и лошадью во дворе деревянного дома" loading="lazy">
+                  <img src="atelier/Actor%20Nino%20Chkheidze%20Nikoloz%20Sagharadze%27s%20photo%20collection%201900s.jpg" alt="Actor Nino Chkheidze Nikoloz Sagharadze&#x27;s photo collection 1900s" loading="lazy">
                 </span>
               </span>
             </span>
-            <span class="slip">
-              <span class="slip-title">Двор</span>
-              <span class="slip-meta">улица</span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Actor Nino Chkheidze Nikoloz Sagharadze&#x27;s</span>
+              <span class="slip-more">photo collection 1900s</span>
             </span>
           </div>
         </figure>
-        <figure class="plate" data-span="half" style="--i:15;--ratio:4 / 5">
+        <figure class="plate" data-span="third" style="--i:14">
           <div class="plate-hit is-still">
             <span class="nail" aria-hidden="true"></span>
             <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
             <span class="frame">
               <span class="frame-well">
                 <span class="opening">
-                  <img src="atelier/garden.jpg" alt="Большая группа мужчин за столом в кипарисовой аллее" loading="lazy">
+                  <img src="atelier/Actor%2C%20director%20and%20playwright%20Valerian%20Gunia%20%281862-1938%29.jpg" alt="Actor, director and playwright Valerian Gunia (1862-1938)" loading="lazy">
                 </span>
               </span>
             </span>
-            <span class="slip">
-              <span class="slip-title">В саду</span>
-              <span class="slip-meta">собрание</span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Actor, director and playwright Valerian Gunia</span>
+              <span class="slip-more">(1862-1938)</span>
             </span>
           </div>
         </figure>
-        <figure class="plate" data-span="half" style="--i:16;--ratio:2 / 3">
+        <figure class="plate" data-span="third" style="--i:15" data-motion="atelier/actress.mp4">
           <div class="plate-hit is-still">
             <span class="nail" aria-hidden="true"></span>
             <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
             <span class="frame">
               <span class="frame-well">
                 <span class="opening">
-                  <img src="atelier/street.jpg" alt="Люди, конь и две девочки с рамкой у каменного дома" loading="lazy">
+                  <img src="atelier/actress.jpg" alt="actress" loading="lazy">
                 </span>
               </span>
             </span>
-            <span class="slip">
-              <span class="slip-title">У коня</span>
-              <span class="slip-meta">улица</span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">actress</span>
             </span>
           </div>
         </figure>
-        <figure class="plate" data-span="half" style="--i:17;--ratio:3 / 4">
+        <figure class="plate" data-span="third" style="--i:16">
           <div class="plate-hit is-still">
             <span class="nail" aria-hidden="true"></span>
             <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
             <span class="frame">
               <span class="frame-well">
                 <span class="opening">
-                  <img src="atelier/table.jpg" alt="Мужчина сидит за круглым столом с раковиной на фоне расписного задника" loading="lazy">
+                  <img src="atelier/Actress%20Nino%20Davitashvili%20in%20the%20role%20of%20Ophelia%20from%20the%20play%20%22Hamlet%22.jpg" alt="Actress Nino Davitashvili in the role of Ophelia from the play &quot;Hamlet&quot;" loading="lazy">
                 </span>
               </span>
             </span>
-            <span class="slip">
-              <span class="slip-title">Круглый стол</span>
-              <span class="slip-meta">кабинет-портрет</span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Actress Nino Davitashvili in the role of</span>
+              <span class="slip-more">Ophelia from the play &quot;Hamlet&quot;</span>
             </span>
           </div>
         </figure>
-        <figure class="plate" data-span="half" style="--i:18;--ratio:3 / 4">
+        <figure class="plate" data-span="third" style="--i:17">
           <div class="plate-hit is-still">
             <span class="nail" aria-hidden="true"></span>
             <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
             <span class="frame">
               <span class="frame-well">
                 <span class="opening">
-                  <img src="atelier/crack.jpg" alt="Повреждённый стеклянный негатив: женщина полулежит в резном кресле" loading="lazy">
+                  <img src="atelier/Actress%20Nutsa%20Chkheidze%20with%20her%20husband%2C%20Mikheil%20Koreli%20and%20children.jpg" alt="Actress Nutsa Chkheidze with her husband, Mikheil Koreli and children" loading="lazy">
                 </span>
               </span>
             </span>
-            <span class="slip">
-              <span class="slip-title">Треснувшая пластинка</span>
-              <span class="slip-meta">стеклянный негатив</span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Actress Nutsa Chkheidze with her husband,</span>
+              <span class="slip-more">Mikheil Koreli and children</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:18">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Anniversary%20evening%20of%20Akaki%20Tsereteli%20Kutaisi%2C%201908%20Caption%20on%20the%20photo%3A%20%22This%20evening%2C%20scenes%20from%20Akaki%27s%20play%20%22Little%20Kakhi%22%20were%20performed%20by%20Nino%20Davitashvili%2C%20Iuza%20Zardalishvili%2C%20or%20Murusidze%20and%20Gr.%20Charkviani..jpg" alt="Anniversary evening of Akaki Tsereteli Kutaisi, 1908 Caption on the photo: &quot;This evening, scenes from Akaki&#x27;s play &quot;Little Kakhi&quot; were performed by Nino Davitashvili, Iuza Zardalishvili, or Murusidze and Gr. Charkviani" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Anniversary evening of Akaki Tsereteli</span>
+              <span class="slip-more">Kutaisi, 1908 Caption on the photo: &quot;This evening, scenes from Akaki&#x27;s play &quot;Little Kakhi&quot; were performed by Nino Davitashvili, Iuza Zardalishvili, or Murusidze and Gr. Charkviani</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:19">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Archpriest%20Gabriel%20Tsagareishvili%20%281860-1929%29.jpg" alt="Archpriest Gabriel Tsagareishvili (1860-1929)" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Archpriest Gabriel Tsagareishvili</span>
+              <span class="slip-more">(1860-1929)</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:20">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Bishop%20Giorgi%20Aladashvili%20of%20Imereti%20%281850-1924%29.jpg" alt="Bishop Giorgi Aladashvili of Imereti (1850-1924)" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Bishop Giorgi Aladashvili of Imereti</span>
+              <span class="slip-more">(1850-1924)</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:21">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Bishop%20Nestor%20Kubaneishvili%20%281853-1938%29.jpg" alt="Bishop Nestor Kubaneishvili (1853-1938)" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Bishop Nestor Kubaneishvili (1853-1938)</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:22">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/chair.jpg" alt="chair" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">chair</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:23">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Chemist%20Saba%20%28Alexander%29%20Kldiashvili%20%281873-1905%29.jpg" alt="Chemist Saba (Alexander) Kldiashvili (1873-1905)" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Chemist Saba (Alexander) Kldiashvili</span>
+              <span class="slip-more">(1873-1905)</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:24">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/courtyard.jpg" alt="courtyard" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">courtyard</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:25">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/crack.jpg" alt="crack" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">crack</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:26">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/curls.jpg" alt="curls" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">curls</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:27">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Davit%20Bakradze%20-%20founder%20and%20trustee%20of%20the%20Kutaisi%20Agricultural%20School.jpg" alt="Davit Bakradze - founder and trustee of the Kutaisi Agricultural School" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Davit Bakradze - founder and trustee of the</span>
+              <span class="slip-more">Kutaisi Agricultural School</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:28">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Directed%20by%20Mikheil%20Koreli%20%28Koridze%29%20%281876-1949%29.jpg" alt="Directed by Mikheil Koreli (Koridze) (1876-1949)" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Directed by Mikheil Koreli (Koridze)</span>
+              <span class="slip-more">(1876-1949)</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:29">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Director%20of%20Kutaisi%20Classical%20Gymnasium%20Osip%20Chebish-1903.jpg" alt="Director of Kutaisi Classical Gymnasium Osip Chebish-1903" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Director of Kutaisi Classical Gymnasium Osip</span>
+              <span class="slip-more">Chebish-1903</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:30">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/3_1967%20%281%29.jpgDon%20Damian%20Saakashvili%20%281865-1940%29%2C%20head%20of%20the%20Kutaisi%20Catholic%20Monastery" alt="Don Damian Saakashvili (1865-1940), head of the Kutaisi Catholic Monastery" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Don Damian Saakashvili (1865-1940), head of</span>
+              <span class="slip-more">the Kutaisi Catholic Monastery</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:31">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/family.jpg" alt="family" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">family</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:32">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/father.jpg" alt="father" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">father</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:33">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/fireplace.jpg" alt="fireplace" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">fireplace</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:34">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/From%20left%3A%20Isidore%20Kvitsaridze%2C%20Zakaria%20Chichinadze%20and%20Iason%20Gabilaia%20at%20Akaki%20Tsereteli%20Agency%20%22Imereti%22..jpg" alt="From left: Isidore Kvitsaridze, Zakaria Chichinadze and Iason Gabilaia at Akaki Tsereteli Agency &quot;Imereti&quot;" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">From left: Isidore Kvitsaridze, Zakaria</span>
+              <span class="slip-more">Chichinadze and Iason Gabilaia at Akaki Tsereteli Agency &quot;Imereti&quot;</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:35">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/From%20left%3A%20Social-Revolutionary%20Kolia%20Chigogidze%2C%20unknown%20person%20and%20anarchist%20Simon%20Japaridze.jpg" alt="From left: Social-Revolutionary Kolia Chigogidze, unknown person and anarchist Simon Japaridze" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">From left: Social-Revolutionary Kolia</span>
+              <span class="slip-more">Chigogidze, unknown person and anarchist Simon Japaridze</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:36">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/From%20the%20left%3A%20Vasil%20Tsereteli%2C%20Lado%20Bzvaneli%2C%20Zakaria%20Chichinadze%2C%20Teophile%20Khuskivadze%2C%20Samson%20Kipiani.%20Standing%3A%20unknown%20people%2C%20Alexander%20Chirakadze%2C%20Ia%20Ekaladze%2C%20Dia%20Chianeli%20%28Davit%20Chkheidze%29%20and%20Iason%20Gabilaia.jpg" alt="From the left: Vasil Tsereteli, Lado Bzvaneli, Zakaria Chichinadze, Teophile Khuskivadze, Samson Kipiani. Standing: unknown people, Alexander Chirakadze, Ia Ekaladze, Dia Chianeli (Davit Chkheidze) and Iason Gabilaia" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">From the left: Vasil Tsereteli, Lado</span>
+              <span class="slip-more">Bzvaneli, Zakaria Chichinadze, Teophile Khuskivadze, Samson Kipiani. Standing: unknown people, Alexander Chirakadze, Ia Ekaladze, Dia Chianeli (Davit Chkheidze) and Iason Gabilaia</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:37">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/garden.jpg" alt="garden" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">garden</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:38">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Group%20of%20Georgian%20writers%20and%20poets.%20From%20left%3A%20Varlam%20Rukhadze%2C%20Jaju%20Jorjikia%2C%20Shio%20Mghvimeli%2C%20Iona%20Meunargia%2C%20Ia%20Ekaladze%2C%20Iason%20Nikolaishvili.%20Isidore%20Kvitsaridze%20stands%20on%20the%20right%5B1910%5D.jpg" alt="Group of Georgian writers and poets. From left: Varlam Rukhadze, Jaju Jorjikia, Shio Mghvimeli, Iona Meunargia, Ia Ekaladze, Iason Nikolaishvili. Isidore Kvitsaridze stands on the right[1910]" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Group of Georgian writers and poets. From</span>
+              <span class="slip-more">left: Varlam Rukhadze, Jaju Jorjikia, Shio Mghvimeli, Iona Meunargia, Ia Ekaladze, Iason Nikolaishvili. Isidore Kvitsaridze stands on the right[1910]</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:39">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Gurian%20in%20national%20clothes.jpg" alt="Gurian in national clothes" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Gurian in national clothes</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:40">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/hat.jpg" alt="hat" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">hat</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:41">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Imereli%20men%27s%20type%20-%20Varlam%20Sakvarelidze.jpg" alt="Imereli men&#x27;s type - Varlam Sakvarelidze" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Imereli men&#x27;s type - Varlam Sakvarelidze</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:42">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Isidore%20Kvitsaridze%2C%20public%20figure%2C%20writer%2C%20publisher.jpg" alt="Isidore Kvitsaridze, public figure, writer, publisher" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Isidore Kvitsaridze, public figure, writer,</span>
+              <span class="slip-more">publisher</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:43">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Isidore%20Ramishvili%20%281859-1937%29%2C%20Social%20Democrat%2C%20publicist.jpg" alt="Isidore Ramishvili (1859-1937), Social Democrat, publicist" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Isidore Ramishvili (1859-1937), Social</span>
+              <span class="slip-more">Democrat, publicist</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:44">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Jaba%20Gurieli%20with%20his%20wife%20and%20daughter.jpg" alt="Jaba Gurieli with his wife and daughter" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Jaba Gurieli with his wife and daughter</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:45">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Kote%20Potskhverashvili-1919.jpg" alt="Kote Potskhverashvili-1919" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Kote Potskhverashvili-1919</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:46">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Kutaisi%20Governor%20Adam%20Slavovchinski-1912.jpg" alt="Kutaisi Governor Adam Slavovchinski-1912" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Kutaisi Governor Adam Slavovchinski-1912</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:47">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Kutaisi%20Nikoloz%20Sagharadze%27s%20photo%20collection10.jpg" alt="Kutaisi Nikoloz Sagharadze&#x27;s photo collection10" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Kutaisi Nikoloz Sagharadze&#x27;s photo</span>
+              <span class="slip-more">collection10</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:48">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Kutaisi%20Nikoloz%20Sagharadze%27s%20photo%20collection11.jpg" alt="Kutaisi Nikoloz Sagharadze&#x27;s photo collection11" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Kutaisi Nikoloz Sagharadze&#x27;s photo</span>
+              <span class="slip-more">collection11</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:49">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Kutaisi%20Nikoloz%20Sagharadze%27s%20photo%20collection12.jpg" alt="Kutaisi Nikoloz Sagharadze&#x27;s photo collection12" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Kutaisi Nikoloz Sagharadze&#x27;s photo</span>
+              <span class="slip-more">collection12</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:50">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Kutaisi%20Nikoloz%20Sagharadze%27s%20photo%20collection13.jpg" alt="Kutaisi Nikoloz Sagharadze&#x27;s photo collection13" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Kutaisi Nikoloz Sagharadze&#x27;s photo</span>
+              <span class="slip-more">collection13</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:51">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Kutaisi%20Nikoloz%20Sagharadze%27s%20photo%20collection14.jpg" alt="Kutaisi Nikoloz Sagharadze&#x27;s photo collection14" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Kutaisi Nikoloz Sagharadze&#x27;s photo</span>
+              <span class="slip-more">collection14</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:52">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Kutaisi%20Nikoloz%20Sagharadze%27s%20photo%20collection16.jpg" alt="Kutaisi Nikoloz Sagharadze&#x27;s photo collection16" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Kutaisi Nikoloz Sagharadze&#x27;s photo</span>
+              <span class="slip-more">collection16</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:53">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Kutaisi%20Nikoloz%20Sagharadze%27s%20photo%20collection17.jpg" alt="Kutaisi Nikoloz Sagharadze&#x27;s photo collection17" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Kutaisi Nikoloz Sagharadze&#x27;s photo</span>
+              <span class="slip-more">collection17</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:54">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Kutaisi%20Nikoloz%20Sagharadze%27s%20photo%20collection18.jpg" alt="Kutaisi Nikoloz Sagharadze&#x27;s photo collection18" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Kutaisi Nikoloz Sagharadze&#x27;s photo</span>
+              <span class="slip-more">collection18</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:55">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Kutaisi%20Nikoloz%20Sagharadze%27s%20photo%20collection19.jpg" alt="Kutaisi Nikoloz Sagharadze&#x27;s photo collection19" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Kutaisi Nikoloz Sagharadze&#x27;s photo</span>
+              <span class="slip-more">collection19</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:56">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Kutaisi%20Nikoloz%20Sagharadze%27s%20photo%20collection2.jpg" alt="Kutaisi Nikoloz Sagharadze&#x27;s photo collection2" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Kutaisi Nikoloz Sagharadze&#x27;s photo</span>
+              <span class="slip-more">collection2</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:57">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Kutaisi%20Nikoloz%20Sagharadze%27s%20photo%20collection20.jpg" alt="Kutaisi Nikoloz Sagharadze&#x27;s photo collection20" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Kutaisi Nikoloz Sagharadze&#x27;s photo</span>
+              <span class="slip-more">collection20</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:58">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Kutaisi%20Nikoloz%20Sagharadze%27s%20photo%20collection21.jpg" alt="Kutaisi Nikoloz Sagharadze&#x27;s photo collection21" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Kutaisi Nikoloz Sagharadze&#x27;s photo</span>
+              <span class="slip-more">collection21</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:59">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Kutaisi%20Nikoloz%20Sagharadze%27s%20photo%20collection22.jpg" alt="Kutaisi Nikoloz Sagharadze&#x27;s photo collection22" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Kutaisi Nikoloz Sagharadze&#x27;s photo</span>
+              <span class="slip-more">collection22</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:60">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Kutaisi%20Nikoloz%20Sagharadze%27s%20photo%20collection23.jpg" alt="Kutaisi Nikoloz Sagharadze&#x27;s photo collection23" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Kutaisi Nikoloz Sagharadze&#x27;s photo</span>
+              <span class="slip-more">collection23</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:61">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Kutaisi%20Nikoloz%20Sagharadze%27s%20photo%20collection24.jpg" alt="Kutaisi Nikoloz Sagharadze&#x27;s photo collection24" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Kutaisi Nikoloz Sagharadze&#x27;s photo</span>
+              <span class="slip-more">collection24</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:62">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Kutaisi%20Nikoloz%20Sagharadze%27s%20photo%20collection25.jpg" alt="Kutaisi Nikoloz Sagharadze&#x27;s photo collection25" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Kutaisi Nikoloz Sagharadze&#x27;s photo</span>
+              <span class="slip-more">collection25</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:63">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Kutaisi%20Nikoloz%20Sagharadze%27s%20photo%20collection27.jpg" alt="Kutaisi Nikoloz Sagharadze&#x27;s photo collection27" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Kutaisi Nikoloz Sagharadze&#x27;s photo</span>
+              <span class="slip-more">collection27</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:64">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Kutaisi%20Nikoloz%20Sagharadze%27s%20photo%20collection3.jpg" alt="Kutaisi Nikoloz Sagharadze&#x27;s photo collection3" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Kutaisi Nikoloz Sagharadze&#x27;s photo</span>
+              <span class="slip-more">collection3</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:65">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Kutaisi%20Nikoloz%20Sagharadze%27s%20photo%20collection4.jpg" alt="Kutaisi Nikoloz Sagharadze&#x27;s photo collection4" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Kutaisi Nikoloz Sagharadze&#x27;s photo</span>
+              <span class="slip-more">collection4</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:66">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Kutaisi%20Nikoloz%20Sagharadze%27s%20photo%20collection6.jpg" alt="Kutaisi Nikoloz Sagharadze&#x27;s photo collection6" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Kutaisi Nikoloz Sagharadze&#x27;s photo</span>
+              <span class="slip-more">collection6</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:67">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Kutaisi%20Nikoloz%20Sagharadze%27s%20photo%20collection7.jpg" alt="Kutaisi Nikoloz Sagharadze&#x27;s photo collection7" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Kutaisi Nikoloz Sagharadze&#x27;s photo</span>
+              <span class="slip-more">collection7</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:68">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Kutaisi%20Nikoloz%20Sagharadze%27s%20photo%20collection8.jpg" alt="Kutaisi Nikoloz Sagharadze&#x27;s photo collection8" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Kutaisi Nikoloz Sagharadze&#x27;s photo</span>
+              <span class="slip-more">collection8</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:69">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Kutaisi%20Nikoloz%20Sagharadze%27s%20photo%20collection9.jpg" alt="Kutaisi Nikoloz Sagharadze&#x27;s photo collection9" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Kutaisi Nikoloz Sagharadze&#x27;s photo</span>
+              <span class="slip-more">collection9</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:70">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Kutaisi%20Theater%201898-99-Among%20the%20members%20of%20the%20theater%3A%20Kote%20Kipiani%2C%20Lado%20Meskhishvili%2C%20Nutsa%20Chkheidze%2C%20Shalva%20Dadiani%2C%20Vaso%20Balanchivadze%2C%20Nemo%20%28Mikheil%20Janoev%29%2C%20Gamkrelidze.jpg" alt="Kutaisi Theater 1898-99-Among the members of the theater: Kote Kipiani, Lado Meskhishvili, Nutsa Chkheidze, Shalva Dadiani, Vaso Balanchivadze, Nemo (Mikheil Janoev), Gamkrelidze" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Kutaisi Theater 1898-99-Among the members of</span>
+              <span class="slip-more">the theater: Kote Kipiani, Lado Meskhishvili, Nutsa Chkheidze, Shalva Dadiani, Vaso Balanchivadze, Nemo (Mikheil Janoev), Gamkrelidze</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:71">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/lean.jpg" alt="lean" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">lean</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:72">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Levan%20Dadeshkeliani%20%281873-1918%29%20Georgian%20publicist%2C%20political%20figure.jpg" alt="Levan Dadeshkeliani (1873-1918) Georgian publicist, political figure" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Levan Dadeshkeliani (1873-1918) Georgian</span>
+              <span class="slip-more">publicist, political figure</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:73">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Lucien%20Charles%20David%20Murat%20%281870-1933%29.jpg" alt="Lucien Charles David Murat (1870-1933)" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Lucien Charles David Murat (1870-1933)</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:74">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Mikhako%20Tsereteli%20with%20unknown%20men.jpg" alt="Mikhako Tsereteli with unknown men" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Mikhako Tsereteli with unknown men</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:75">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/newspapers.jpg" alt="newspapers" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">newspapers</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:76">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Niko%20Nikoladze%20%281843-1928%29%20-%20publicist%2C%20political%20and%20public%20figure.jpg" alt="Niko Nikoladze (1843-1928) - publicist, political and public figure" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Niko Nikoladze (1843-1928) - publicist,</span>
+              <span class="slip-more">political and public figure</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:77">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Nikoloz%20Sagharadze%27s%20photo%20collection.jpg" alt="Nikoloz Sagharadze&#x27;s photo collection" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Nikoloz Sagharadze&#x27;s photo collection</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:78">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Noe%20Jordania%20%281868-1953%29%2C%20Publicist%20and%20political%20figure.jpg" alt="Noe Jordania (1868-1953), Publicist and political figure" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Noe Jordania (1868-1953), Publicist and</span>
+              <span class="slip-more">political figure</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:79">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Nutsa%20Chkheidze%20in%20the%20role%20of%20Margarita%20Gauthier.jpg" alt="Nutsa Chkheidze in the role of Margarita Gauthier" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Nutsa Chkheidze in the role of Margarita</span>
+              <span class="slip-more">Gauthier</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:80">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/papakha.jpg" alt="papakha" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">papakha</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:81">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Participants%20of%20the%20literary%20evening%20organized%20to%20support%20of%20Iriodion%20Evdoshvili%20Kutaisi%201914.jpg" alt="Participants of the literary evening organized to support of Iriodion Evdoshvili Kutaisi 1914" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Participants of the literary evening</span>
+              <span class="slip-more">organized to support of Iriodion Evdoshvili Kutaisi 1914</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:82">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Poet%20Grigol%20Abashidze%20%281866-1903%29.jpg" alt="Poet Grigol Abashidze (1866-1903)" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Poet Grigol Abashidze (1866-1903)</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:83">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/portrait.jpg" alt="portrait" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">portrait</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:84">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/procession.jpg" alt="procession" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">procession</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:85">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/profile.jpg" alt="profile" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">profile</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:86" data-motion="atelier/lady_v_kresle.mp4">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/reclining.jpg" alt="reclining" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">reclining</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:87">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/result%20%281%29.gif" alt="result (1)" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">result (1)</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:88">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Samson%20Pirtskhalava%20%281872-1952%29%2C%20Political%20figure%20and%20publicist.jpg" alt="Samson Pirtskhalava (1872-1952), Political figure and publicist" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Samson Pirtskhalava (1872-1952), Political</span>
+              <span class="slip-more">figure and publicist</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:89">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Seated%20from%20the%20left%3A%20Niko%20Gotsiridze%2C%20Tamar%20Chavchavadze%2C%20Nemo%3B%20Standing%3A%20Akaki%20Khorava%2C%20Alexander%20Akhmeteli%2C%20d.%20Chkheidze.jpg" alt="Seated from the left: Niko Gotsiridze, Tamar Chavchavadze, Nemo; Standing: Akaki Khorava, Alexander Akhmeteli, d. Chkheidze" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Seated from the left: Niko Gotsiridze, Tamar</span>
+              <span class="slip-more">Chavchavadze, Nemo; Standing: Akaki Khorava, Alexander Akhmeteli, d. Chkheidze</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:90">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Shalva%20Dadiani%20in%20the%20coffin-According%20to%20Nikoloz%20Sagharadze%27s%20narrative%2C%20the%20story%20of%20this%20photo%20is%20the%20following%3A%20Shalva%20Dadiani%20borrowed%20some%20money%20for%20the%20Kutaisi%20Theater%2C%20though%20was%20unable%20to%20repay%20the%20debt%20on%20time.jpg" alt="Shalva Dadiani in the coffin-According to Nikoloz Sagharadze&#x27;s narrative, the story of this photo is the following: Shalva Dadiani borrowed some money for the Kutaisi Theater, though was unable to repay the debt on time" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Shalva Dadiani in the coffin-According to</span>
+              <span class="slip-more">Nikoloz Sagharadze&#x27;s narrative, the story of this photo is the following: Shalva Dadiani borrowed some money for the Kutaisi Theater, though was unable to repay the debt on time</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:91">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Soldiers%20in%20the%20yard%20of%20Kutaisi%20Court%20building%20during%20dinner%20%5B1920%5D.jpg" alt="Soldiers in the yard of Kutaisi Court building during dinner [1920]" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Soldiers in the yard of Kutaisi Court</span>
+              <span class="slip-more">building during dinner [1920]</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:92">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Sonia%20Tketsishvili%2C%20Ekaterine%20Shengelaia%20%28mother%20of%20director%20Nikoloz%20Shengelaia%29%20and%20other%20people%20on%20Gviriloba%20Day%3D1912-1917.jpg" alt="Sonia Tketsishvili, Ekaterine Shengelaia (mother of director Nikoloz Shengelaia) and other people on Gviriloba Day=1912-1917" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Sonia Tketsishvili, Ekaterine Shengelaia</span>
+              <span class="slip-more">(mother of director Nikoloz Shengelaia) and other people on Gviriloba Day=1912-1917</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:93">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/standing.jpg" alt="standing" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">standing</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:94">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/street.jpg" alt="street" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">street</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:95">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Svanetian%20Huntet%20with%20gun.jpg" alt="Svanetian Huntet with gun" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Svanetian Huntet with gun</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:96">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/table.jpg" alt="table" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">table</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:97">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Telemak%20Gurieli%20in%20national%20clothes.jpg" alt="Telemak Gurieli in national clothes" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Telemak Gurieli in national clothes</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:98">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/The%20beggar.jpg" alt="The beggar" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">The beggar</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:99">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/The%20water%20seller%20pours%20water%20to%20the%20buyers%20standing%20in%20line.jpg" alt="The water seller pours water to the buyers standing in line" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">The water seller pours water to the buyers</span>
+              <span class="slip-more">standing in line</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:100">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Unknown%20adolescents%20Kutaisi%20Nikoloz%20Sagharadze%27s%20photo%20collection.jpg" alt="Unknown adolescents Kutaisi Nikoloz Sagharadze&#x27;s photo collection" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Unknown adolescents Kutaisi Nikoloz</span>
+              <span class="slip-more">Sagharadze&#x27;s photo collection</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:101">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Unknown%20clergyman%27s%20family-1917.jpg" alt="Unknown clergyman&#x27;s family-1917" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Unknown clergyman&#x27;s family-1917</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:102">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Unknown%20family%20Kutaisi%20Nikoloz%20Sagharadze%27s%20photo%20collection.jpg" alt="Unknown family Kutaisi Nikoloz Sagharadze&#x27;s photo collection" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Unknown family Kutaisi Nikoloz Sagharadze&#x27;s</span>
+              <span class="slip-more">photo collection</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:103">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Unknown%20girl-Kutaisi%20Nikoloz%20Sagharadze%27s%20photo%20collection.jpg" alt="Unknown girl-Kutaisi Nikoloz Sagharadze&#x27;s photo collection" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Unknown girl-Kutaisi Nikoloz Sagharadze&#x27;s</span>
+              <span class="slip-more">photo collection</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:104">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Unknown%20kids%20Kutaisi%20Nikoloz%20Sagharadze%27s%20photo%20collection.jpg" alt="Unknown kids Kutaisi Nikoloz Sagharadze&#x27;s photo collection" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Unknown kids Kutaisi Nikoloz Sagharadze&#x27;s</span>
+              <span class="slip-more">photo collection</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:105">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Unknown%20ladies%20Kutaisi%20Nikoloz%20Sagharadze%27s%20photo%20collection.jpg" alt="Unknown ladies Kutaisi Nikoloz Sagharadze&#x27;s photo collection" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Unknown ladies Kutaisi Nikoloz Sagharadze&#x27;s</span>
+              <span class="slip-more">photo collection</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:106">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Unknown%20lady%20Kutaisi%20Nikoloz%20Sagharadze%27s%20photo%20collection.jpg" alt="Unknown lady Kutaisi Nikoloz Sagharadze&#x27;s photo collection" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Unknown lady Kutaisi Nikoloz Sagharadze&#x27;s</span>
+              <span class="slip-more">photo collection</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:107">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Unknown%20lady2%20Kutaisi%20Nikoloz%20Sagharadze%27s%20photo%20collection.jpg" alt="Unknown lady2 Kutaisi Nikoloz Sagharadze&#x27;s photo collection" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Unknown lady2 Kutaisi Nikoloz Sagharadze&#x27;s</span>
+              <span class="slip-more">photo collection</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:108">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Unknown%20man%2C%20Kutaisi%20Nikoloz%20Sagharadze%27s%20photo%20collection.jpg" alt="Unknown man, Kutaisi Nikoloz Sagharadze&#x27;s photo collection" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Unknown man, Kutaisi Nikoloz Sagharadze&#x27;s</span>
+              <span class="slip-more">photo collection</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:109">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Writer%20Irodion%20Evdoshvili%20%281873-1916%29.jpg" alt="Writer Irodion Evdoshvili (1873-1916)" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Writer Irodion Evdoshvili (1873-1916)</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:110">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/Writer%20Shio%20Mghvimeli%20%281866-1933%29.jpg" alt="Writer Shio Mghvimeli (1866-1933)" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Writer Shio Mghvimeli (1866-1933)</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:111">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/%D0%92%D0%B8%D1%81%D1%82%D0%B0%D0%B2%D0%B0%20%C2%AB%D0%A5%D0%B0%D1%80%D0%B0%D0%BC%D1%85%D0%B0%D0%BD%D0%B0%20%D0%A8%D0%B0%D0%BB%D0%B2%D0%B8%20%D0%94%D0%B0%D0%B4%D1%96%D0%B0%D0%BD%D1%96%C2%BB%20%D0%9C%D0%B0%D1%80%D0%B4%D0%B6%D0%B0%D0%BD%D1%96%D1%88%D0%B2%D1%96%D0%BB%D1%96%2C%20%D0%9B%2C%20%D0%A1%20%D0%A7%D1%96%D0%BA%D0%BE%D0%B2%D0%B0%D0%BD%D1%96%2C%20%D0%B6%D1%96%D0%BD%D0%BA%D0%B0%20%D0%94%D0%B6%D0%B0%D0%BA%D0%B5%D0%BB%D1%96%2C%20%20%D0%A1%20%D0%A2%D0%BA%D0%B5%D1%86%D0%B8%D1%88%D0%B2%D1%96%D0%BB%D1%96%2C%20%D0%9A%D1%96%D0%BA%D0%BD%D0%B0%D0%B4%D0%B7%D0%B5%2C%20%D0%A8%D0%B0%D1%85%20-%20%D0%A8%D0%B0%D0%BB%D0%B2%D0%B0%20%D0%94%D0%B0%D0%B4%D1%96%D0%B0%D0%BD%D1%96.jpg" alt="Вистава «Харамхана Шалви Дадіані» Марджанішвілі, Л, С Чіковані, жінка Джакелі, С Ткецишвілі, Кікнадзе, Шах - Шалва Дадіані" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Вистава «Харамхана Шалви Дадіані»</span>
+              <span class="slip-more">Марджанішвілі, Л, С Чіковані, жінка Джакелі, С Ткецишвілі, Кікнадзе, Шах - Шалва Дадіані</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:112">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/%D0%92%D1%96%D0%B4%D1%80%D0%B5%D1%81%D1%82%D0%B0%D0%B2%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B9%20%D0%BF%D0%BE%D1%80%D1%82%D1%80%D0%B5%D1%82%20%D1%83%20%D1%81%D0%B0%D0%B4%D1%83.png" alt="Відреставрований портрет у саду" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Відреставрований портрет у саду</span>
+            </span>
+          </div>
+        </figure>
+        <figure class="plate" data-span="third" style="--i:113">
+          <div class="plate-hit is-still">
+            <span class="nail" aria-hidden="true"></span>
+            <span class="lamp" aria-hidden="true"><span class="lamp-plate"></span><span class="lamp-arm"></span><span class="lamp-shade"></span></span>
+            <span class="frame">
+              <span class="frame-well">
+                <span class="opening">
+                  <img src="atelier/%D0%92%D1%96%D0%BD%D1%82%D0%B0%D0%B6%D0%BD%D0%B8%D0%B9%20%D0%BF%D0%BE%D1%80%D1%82%D1%80%D0%B5%D1%82%20%D0%B6%D1%96%D0%BD%D0%BA%D0%B8%20%D1%83%20%D1%81%D0%B8%D0%BD%D1%96%D0%B9%20%D1%81%D1%83%D0%BA%D0%BD%D1%96.png" alt="Вінтажний портрет жінки у синій сукні" loading="lazy">
+                </span>
+              </span>
+            </span>
+            <span class="slip" role="button" tabindex="0" aria-expanded="false">
+              <span class="slip-title">Вінтажний портрет жінки у синій сукні</span>
             </span>
           </div>
         </figure>
@@ -394,6 +1974,13 @@
     </main>
     <script type="module"  src="salon.js"></script>
     <script>
+      document.addEventListener('click', (e) => {
+        const slip = e.target.closest('.slip');
+        if (!slip) return;
+        const open = slip.classList.toggle('is-open');
+        slip.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+
       // Включение и выключение подсветки при нажатии на рамку картины
       document.addEventListener('click', (e) => {
         const frame = e.target.closest('.frame');
