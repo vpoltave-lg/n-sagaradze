@@ -383,10 +383,18 @@ button.plate-hit:focus-visible {
   display: block;
   width: 100%;
   aspect-ratio: var(--ratio, 3 / 4);
+  min-height: 18rem;          /* ← добавьте */
   overflow: hidden;
   background: var(--color-well);
 }
 
+@media (min-width: 840px) {
+  .opening {
+    aspect-ratio: auto;
+    height: 26rem;
+    min-height: 0;
+  }
+}
 .opening img,
 .opening video {
   position: absolute;
