@@ -379,7 +379,7 @@ button.plate-hit:focus-visible {
 }
 
 .opening {
-   
+   position: absolute;
    display: block;
    overflow: hidden;
 -  aspect-ratio: var(--ratio);
