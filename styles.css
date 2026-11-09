@@ -379,13 +379,13 @@ button.plate-hit:focus-visible {
 }
 
 .opening {
-   position: absolute;
-   display: block;
-   overflow: hidden;
--  aspect-ratio: var(--ratio);
-+  aspect-ratio: var(--ratio, 3 / 4);
-   background: var(--color-well);
- }
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: var(--ratio, 3 / 4);
+  overflow: hidden;
+  background: var(--color-well);
+}
 
 .opening img,
 .opening video {
