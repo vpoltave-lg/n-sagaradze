@@ -73,27 +73,14 @@ function bind(plate) {
 
 document.querySelectorAll(".plate[data-motion]").forEach(bind);
 
-const colorPhotoSources = new Map([
-  [
-    "Actor Grigol Charkviani (1870-1933).jpg",
-    "atelier/Actor_Grigol_Charkviani_(1870-1933)_c.jpg",
-  ],
-  ["Gurian in national clothes.jpg", "atelier/Gurian_in_national_clothes.jpg"],
-  [
-    "Kote Potskhverashvili-1919.jpg",
-    "atelier/Kote_Potskhverashvili-1919_c.jpg",
-  ],
-  [
-    "Levan Dadeshkeliani (1873-1918) Georgian publicist, political figure.jpg",
-    "atelier/Levan_Dadeshkeliani_(1873-1918)_Georgian_publicist_political_figure_c.jpeg",
-  ],
-  [
-    "Levan Dadeshkeliani (1873-1918) Georgian publicist, political figure.webp",
-    "atelier/Levan_Dadeshkeliani_(1873-1918)_Georgian_publicist_political_figure_c.jpeg",
-  ],
+// Standard color-file naming: original filename with spaces changed to underscores,
+// followed by _c before the extension. Keep aliases for the already-uploaded files
+// whose names predate this convention.
+const legacyColorPhotoNames = new Map([
+  ["Gurian in national clothes.jpg", ["Gurian_in_national_clothes.jpg"]],
   [
     "Telemak Gurieli in national clothes.jpg",
-    "atelier/Telemak_Gurieli_in_national%20_clothes_c.jpg",
+    ["Telemak_Gurieli_in_national _clothes_c.jpg"],
   ],
 ]);
 
@@ -104,6 +91,28 @@ function getPhotoFileName(src) {
   } catch {
     return decodeURIComponent(src.split("/").pop());
   }
+}
+
+function getColorPhotoCandidates(photo) {
+  const originalSrc = photo.dataset.originalSrc || photo.currentSrc || photo.src;
+  const fileName = getPhotoFileName(originalSrc);
+  const match = fileName.match(/^(.*)\.(jpe?g|png|webp)$/i);
+  if (!match) return [];
+
+  const [, originalBase, originalExtension] = match;
+  const normalizedBase = originalBase.replace(/\s+/g, "_");
+  const extensions = [originalExtension.toLowerCase(), "jpg", "jpeg", "png", "webp"];
+  const uniqueExtensions = [...new Set(extensions)];
+  const candidates = (legacyColorPhotoNames.get(fileName) || []).map(
+    (name) => `atelier/${name.split("/").map(encodeURIComponent).join("/")}`,
+  );
+
+  uniqueExtensions.forEach((extension) => {
+    const colorName = `${normalizedBase}_c.${extension}`;
+    candidates.push(`atelier/${encodeURIComponent(colorName)}`);
+  });
+
+  return [...new Set(candidates)];
 }
 
 function setupPhotoViewer() {
@@ -131,21 +140,27 @@ function setupPhotoViewer() {
   document.body.appendChild(dialog);
 
   function openPhoto(photo) {
-    // Match both the source JPG and the WebP thumbnail URL.
-    const sourcePath = photo.dataset.originalSrc || photo.currentSrc || photo.src;
-    const fileName = getPhotoFileName(sourcePath);
     const fallbackSrc = photo.currentSrc || photo.src;
-    const colorSrc = colorPhotoSources.get(fileName);
+    const candidates = getColorPhotoCandidates(photo);
+    let candidateIndex = 0;
 
     largePhoto.onerror = null;
     largePhoto.alt = photo.alt;
-    largePhoto.src = colorSrc || photo.dataset.fullSrc || fallbackSrc;
-    if (colorSrc) {
+
+    if (!candidates.length) {
+      largePhoto.src = photo.dataset.fullSrc || fallbackSrc;
+    } else {
       largePhoto.onerror = () => {
+        if (candidateIndex < candidates.length) {
+          largePhoto.src = candidates[candidateIndex++];
+          return;
+        }
         largePhoto.onerror = null;
-        largePhoto.src = fallbackSrc;
+        largePhoto.src = photo.dataset.fullSrc || fallbackSrc;
       };
+      largePhoto.src = candidates[candidateIndex++];
     }
+
     dialog.showModal();
   }
 
