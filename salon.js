@@ -88,10 +88,23 @@ const colorPhotoSources = new Map([
     "atelier/Levan_Dadeshkeliani_(1873-1918)_Georgian_publicist_political_figure_c.jpeg",
   ],
   [
+    "Levan Dadeshkeliani (1873-1918) Georgian publicist, political figure.webp",
+    "atelier/Levan_Dadeshkeliani_(1873-1918)_Georgian_publicist_political_figure_c.jpeg",
+  ],
+  [
     "Telemak Gurieli in national clothes.jpg",
     "atelier/Telemak_Gurieli_in_national%20_clothes_c.jpg",
   ],
 ]);
+
+function getPhotoFileName(src) {
+  if (!src) return "";
+  try {
+    return decodeURIComponent(new URL(src, document.baseURI).pathname.split("/").pop());
+  } catch {
+    return decodeURIComponent(src.split("/").pop());
+  }
+}
 
 function setupPhotoViewer() {
   const photos = document.querySelectorAll(".plate .frame img");
@@ -118,9 +131,9 @@ function setupPhotoViewer() {
   document.body.appendChild(dialog);
 
   function openPhoto(photo) {
-    // Use the original JPEG/PNG path even after the thumbnail switches to WebP.
-    const sourcePath = photo.dataset.originalSrc || photo.getAttribute("src") || "";
-    const fileName = decodeURIComponent(sourcePath.split("/").pop());
+    // Match both the source JPG and the WebP thumbnail URL.
+    const sourcePath = photo.dataset.originalSrc || photo.currentSrc || photo.src;
+    const fileName = getPhotoFileName(sourcePath);
     const fallbackSrc = photo.currentSrc || photo.src;
     const colorSrc = colorPhotoSources.get(fileName);
 
