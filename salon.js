@@ -4,10 +4,10 @@ const reduceQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 function bind(plate) {
   const src = plate.dataset.motion;
   if (!src) return;
-  
+
   // Безпечний вибір: шукаємо .opening, якщо немає — .oval-opening
   const opening = plate.querySelector(".opening") || plate.querySelector(".oval-opening");
-  
+
   const meta = plate.querySelector(".slip-meta");
   const stillMeta = meta ? meta.textContent : "";
   let video = null;
@@ -72,6 +72,64 @@ function bind(plate) {
 }
 
 document.querySelectorAll(".plate[data-motion]").forEach(bind);
+
+function setupPhotoViewer() {
+  const stillPhotos = document.querySelectorAll(".plate:not([data-motion]) .frame img");
+  if (!stillPhotos.length) return;
+
+  const stylesheet = document.createElement("link");
+  stylesheet.rel = "stylesheet";
+  stylesheet.href = "photo-viewer.css";
+  document.head.appendChild(stylesheet);
+
+  const dialog = document.createElement("dialog");
+  dialog.className = "photo-viewer";
+  dialog.setAttribute("aria-label", "Перегляд фотографії");
+
+  const closeButton = document.createElement("button");
+  closeButton.className = "photo-viewer-close";
+  closeButton.type = "button";
+  closeButton.textContent = "Закрити";
+  closeButton.setAttribute("aria-label", "Закрити фотографію");
+
+  const largePhoto = document.createElement("img");
+  largePhoto.className = "photo-viewer-image";
+  dialog.append(closeButton, largePhoto);
+  document.body.appendChild(dialog);
+
+  function openPhoto(photo) {
+    // Додайте data-color-src до зображення, коли кольоровий файл буде в репозиторії.
+    largePhoto.src = photo.dataset.colorSrc || photo.dataset.fullSrc || photo.currentSrc || photo.src;
+    largePhoto.alt = photo.alt;
+    dialog.showModal();
+  }
+
+  stillPhotos.forEach((photo) => {
+    photo.tabIndex = 0;
+    photo.setAttribute("role", "button");
+    photo.setAttribute("aria-label", `Відкрити фотографію: ${photo.alt}`);
+  });
+
+  document.addEventListener("click", (event) => {
+    const photo = event.target.closest?.(".plate:not([data-motion]) .frame img");
+    if (photo) openPhoto(photo);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    const photo = event.target.closest?.(".plate:not([data-motion]) .frame img");
+    if (photo && (event.key === "Enter" || event.key === " ")) {
+      event.preventDefault();
+      openPhoto(photo);
+    }
+  });
+
+  closeButton.addEventListener("click", () => dialog.close());
+  dialog.addEventListener("click", (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+}
+
+setupPhotoViewer();
 
 (() => {
   const supportsWebp = (() => {

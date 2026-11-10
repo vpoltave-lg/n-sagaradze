@@ -1,0 +1,51 @@
+.photo-viewer {
+  position: fixed;
+  inset: 0;
+  width: min(94vw, 72rem);
+  max-width: none;
+  max-height: 94vh;
+  padding: 3.5rem 1rem 1rem;
+  overflow: auto;
+  border: 1px solid #c6a15a;
+  background: #140e0b;
+  color: #f3e6cf;
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.75);
+}
+
+.photo-viewer::backdrop {
+  background: rgba(8, 3, 2, 0.88);
+  backdrop-filter: blur(4px);
+}
+
+.photo-viewer-image {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: calc(94vh - 5rem);
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+.photo-viewer-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  padding: 0.45rem 0.8rem;
+  border: 1px solid #c6a15a;
+  background: #2a1814;
+  color: #f3e6cf;
+  font: inherit;
+  cursor: pointer;
+}
+
+.photo-viewer-close:hover,
+.photo-viewer-close:focus-visible {
+  background: #3c241c;
+  outline: 2px solid #f0e2b0;
+  outline-offset: 2px;
+}
+
+.plate:not([data-motion]) .frame img {
+  cursor: zoom-in;
+}
