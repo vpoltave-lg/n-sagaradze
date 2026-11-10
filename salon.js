@@ -80,7 +80,10 @@ const legacyColorPhotoNames = new Map([
   ["Gurian in national clothes.jpg", ["Gurian_in_national_clothes.jpg"]],
   [
     "Telemak Gurieli in national clothes.jpg",
-    ["Telemak_Gurieli_in_national _clothes_c.jpg"],
+    [
+      "Telemak_Gurieli_in_national _clothes_c.jpg",
+      "Telemak_Gurieli_in_national_clothes_c.jpg",
+    ],
   ],
 ]);
 
@@ -101,16 +104,36 @@ function getColorPhotoCandidates(photo) {
 
   const [, originalBase, originalExtension] = match;
   const normalizedBase = originalBase.replace(/\s+/g, "_");
+  const legacyBaseVariants = [
+    originalBase,
+    normalizedBase,
+    originalBase.replace(/\s+_/g, "_"),
+    originalBase.replace(/_/g, " ").replace(/\s+/g, " "),
+  ];
+
   const extensions = [originalExtension.toLowerCase(), "jpg", "jpeg", "png", "webp"];
   const uniqueExtensions = [...new Set(extensions)];
-  const candidates = (legacyColorPhotoNames.get(fileName) || []).map(
-    (name) => `atelier/${name.split("/").map(encodeURIComponent).join("/")}`,
-  );
+  const candidates = [];
 
-  uniqueExtensions.forEach((extension) => {
-    const colorName = `${normalizedBase}_c.${extension}`;
-    candidates.push(`atelier/${encodeURIComponent(colorName)}`);
+  const legacyNames = legacyColorPhotoNames.get(fileName) || [];
+  legacyNames.forEach((name) => {
+    candidates.push(`atelier/${name}`);
   });
+
+  legacyBaseVariants.forEach((variant) => {
+    uniqueExtensions.forEach((extension) => {
+      const base = variant.replace(/\s+/g, "_");
+      candidates.push(`atelier/${encodeURIComponent(`${base}_c.${extension}`)}`);
+    });
+  });
+
+  const directCandidates = [
+    `atelier/${encodeURIComponent(`${normalizedBase}_c.${originalExtension.toLowerCase()}`)}`,
+    `atelier/${encodeURIComponent(`${normalizedBase}_c.jpg`)}`,
+    `atelier/${encodeURIComponent(`${normalizedBase}_c.jpeg`)}`,
+  ];
+
+  directCandidates.forEach((candidate) => candidates.push(candidate));
 
   return [...new Set(candidates)];
 }
