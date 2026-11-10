@@ -72,36 +72,45 @@ function bind(plate) {
 }
 
 document.querySelectorAll(".plate[data-motion]").forEach(bind);
+
 (() => {
   const supportsWebp = (() => {
-    const canvas = document.createElement("canvas");
-    return !!canvas.getContext && canvas.toDataURL("image/webp").startsWith("data:image/webp");
+    try {
+      const canvas = document.createElement("canvas");
+      return (
+        typeof canvas.toDataURL === "function" &&
+        canvas.toDataURL("image/webp").startsWith("data:image/webp")
+      );
+    } catch {
+      return false;
+    }
   })();
 
   if (!supportsWebp) return;
 
-  const images = [...document.querySelectorAll("img[src]")].filter((img) => {
-    const src = (img.getAttribute("src") || "").toLowerCase();
-    return src.includes("atelier/") && /\.(jpe?g|png)$/.test(src);
-  });
+  const images = document.querySelectorAll("img[src]");
 
   images.forEach((img) => {
-    const src = img.getAttribute("src");
-    if (!src) return;
+    const originalSrc = img.getAttribute("src");
+    if (!originalSrc) return;
 
-    const webpSrc = src.replace(/\.(jpe?g|png)$/i, ".webp");
-    const probe = new Image();
+    const normalizedSrc = originalSrc.toLowerCase();
+    if (!normalizedSrc.includes("atelier/") || !/\.(jpe?g|png)$/.test(normalizedSrc)) {
+      return;
+    }
 
-    probe.onload = () => {
-      img.src = webpSrc;
-      img.loading = "lazy";
-      img.decoding = "async";
-    };
+    const webpSrc = originalSrc.replace(/\.(jpe?g|png)$/i, ".webp");
 
-    probe.onerror = () => {
-      // keep original
-    };
+    // Если WebP отсутствует или не загрузился, оставляем исходное изображение.
+    img.addEventListener(
+      "error",
+      () => {
+        img.src = originalSrc;
+      },
+      { once: true },
+    );
 
-    probe.src = webpSrc;
+    img.decoding = "async";
+    img.src = webpSrc;
   });
 })();
