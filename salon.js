@@ -73,9 +73,29 @@ function bind(plate) {
 
 document.querySelectorAll(".plate[data-motion]").forEach(bind);
 
+const colorPhotoSources = new Map([
+  [
+    "Actor Grigol Charkviani (1870-1933).jpg",
+    "atelier/Actor_Grigol_Charkviani_(1870-1933)_c.jpg",
+  ],
+  ["Gurian in national clothes.jpg", "atelier/Gurian_in_national_clothes.jpg"],
+  [
+    "Kote Potskhverashvili-1919.jpg",
+    "atelier/Kote_Potskhverashvili-1919_c.jpg",
+  ],
+  [
+    "Levan Dadeshkeliani (1873-1918) Georgian publicist, political figure.jpg",
+    "atelier/Levan_Dadeshkeliani_(1873-1918)_Georgian_publicist_political_figure_c.jpeg",
+  ],
+  [
+    "Telemak Gurieli in national clothes.jpg",
+    "atelier/Telemak_Gurieli_in_national%20_clothes_c.jpg",
+  ],
+]);
+
 function setupPhotoViewer() {
-  const stillPhotos = document.querySelectorAll(".plate:not([data-motion]) .frame img");
-  if (!stillPhotos.length) return;
+  const photos = document.querySelectorAll(".plate .frame img");
+  if (!photos.length) return;
 
   const stylesheet = document.createElement("link");
   stylesheet.rel = "stylesheet";
@@ -98,25 +118,31 @@ function setupPhotoViewer() {
   document.body.appendChild(dialog);
 
   function openPhoto(photo) {
-    // Додайте data-color-src до зображення, коли кольоровий файл буде в репозиторії.
-    largePhoto.src = photo.dataset.colorSrc || photo.dataset.fullSrc || photo.currentSrc || photo.src;
+    const sourcePath = photo.getAttribute("src") || "";
+    const fileName = decodeURIComponent(sourcePath.split("/").pop());
+    largePhoto.dataset.fallbackSrc = photo.currentSrc || photo.src;
+    largePhoto.onerror = () => {
+      largePhoto.onerror = null;
+      largePhoto.src = largePhoto.dataset.fallbackSrc;
+    };
+    largePhoto.src = colorPhotoSources.get(fileName) || photo.dataset.fullSrc || photo.currentSrc || photo.src;
     largePhoto.alt = photo.alt;
     dialog.showModal();
   }
 
-  stillPhotos.forEach((photo) => {
+  photos.forEach((photo) => {
     photo.tabIndex = 0;
     photo.setAttribute("role", "button");
     photo.setAttribute("aria-label", `Відкрити фотографію: ${photo.alt}`);
   });
 
   document.addEventListener("click", (event) => {
-    const photo = event.target.closest?.(".plate:not([data-motion]) .frame img");
+    const photo = event.target.closest?.(".plate .frame img");
     if (photo) openPhoto(photo);
   });
 
   document.addEventListener("keydown", (event) => {
-    const photo = event.target.closest?.(".plate:not([data-motion]) .frame img");
+    const photo = event.target.closest?.(".plate .frame img");
     if (photo && (event.key === "Enter" || event.key === " ")) {
       event.preventDefault();
       openPhoto(photo);
