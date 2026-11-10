@@ -73,19 +73,17 @@ function bind(plate) {
 
 document.querySelectorAll(".plate[data-motion]").forEach(bind);
 
-// Standard color-file naming: original filename with spaces changed to underscores,
-// followed by _c before the extension. Keep aliases for the already-uploaded files
-// whose names predate this convention.
+// Colour file: spaces become underscores, then _c before the extension.
+// A few uploads also dropped a comma, turned " - " into "-", or wrote
+// "in-national" instead of "in_national". Those variants are tried too.
+// If none of them exist, the viewer stays on the original photograph.
 const legacyColorPhotoNames = new Map([
   ["Gurian in national clothes.jpg", ["Gurian_in_national_clothes.jpg"]],
-  [
-    "Telemak Gurieli in national clothes.jpg",
-    [
-      "Telemak_Gurieli_in_national _clothes_c.jpg",
-      "Telemak_Gurieli_in_national_clothes_c.jpg",
-    ],
-  ],
 ]);
+
+function atelierFile(name) {
+  return `atelier/${encodeURIComponent(name).replace(/'/g, "%27")}`;
+}
 
 function getPhotoFileName(src) {
   if (!src) return "";
@@ -103,39 +101,26 @@ function getColorPhotoCandidates(photo) {
   if (!match) return [];
 
   const [, originalBase, originalExtension] = match;
-  const normalizedBase = originalBase.replace(/\s+/g, "_");
-  const legacyBaseVariants = [
-    originalBase,
-    normalizedBase,
-    originalBase.replace(/\s+_/g, "_"),
-    originalBase.replace(/_/g, " ").replace(/\s+/g, " "),
+  const underscored = originalBase.trim().replace(/\s+/g, "_");
+  const cleaned = underscored
+    .replace(/,/g, "")
+    .replace(/_-_/g, "-")
+    .replace(/in_national/g, "in-national");
+  const bases = [...new Set([underscored, cleaned])];
+  const extensions = [
+    ...new Set([originalExtension.toLowerCase(), "jpg", "jpeg", "webp", "png"]),
   ];
 
-  const extensions = [originalExtension.toLowerCase(), "jpg", "jpeg", "png", "webp"];
-  const uniqueExtensions = [...new Set(extensions)];
-  const candidates = [];
-
-  const legacyNames = legacyColorPhotoNames.get(fileName) || [];
-  legacyNames.forEach((name) => {
-    candidates.push(`atelier/${name}`);
+  const names = [];
+  (legacyColorPhotoNames.get(fileName) || []).forEach((name) => names.push(name));
+  bases.forEach((base) => {
+    extensions.forEach((extension) => names.push(`${base}_c.${extension}`));
   });
+  if (fileName === "Telemak Gurieli in national clothes.jpg") {
+    names.push("Telemak_Gurieli_in_national _clothes_c.jpg");
+  }
 
-  legacyBaseVariants.forEach((variant) => {
-    uniqueExtensions.forEach((extension) => {
-      const base = variant.replace(/\s+/g, "_");
-      candidates.push(`atelier/${encodeURIComponent(`${base}_c.${extension}`)}`);
-    });
-  });
-
-  const directCandidates = [
-    `atelier/${encodeURIComponent(`${normalizedBase}_c.${originalExtension.toLowerCase()}`)}`,
-    `atelier/${encodeURIComponent(`${normalizedBase}_c.jpg`)}`,
-    `atelier/${encodeURIComponent(`${normalizedBase}_c.jpeg`)}`,
-  ];
-
-  directCandidates.forEach((candidate) => candidates.push(candidate));
-
-  return [...new Set(candidates)];
+  return [...new Set(names.map(atelierFile))];
 }
 
 function setupPhotoViewer() {
@@ -163,7 +148,7 @@ function setupPhotoViewer() {
   document.body.appendChild(dialog);
 
   function openPhoto(photo) {
-    const fallbackSrc = photo.currentSrc || photo.src;
+    const fallbackSrc = photo.dataset.originalSrc || photo.currentSrc || photo.src;
     const candidates = getColorPhotoCandidates(photo);
     let candidateIndex = 0;
 
@@ -194,12 +179,14 @@ function setupPhotoViewer() {
   });
 
   document.addEventListener("click", (event) => {
-    const photo = event.target.closest?.(".plate .frame img");
+    const frame = event.target.closest?.(".plate .frame");
+    const photo = frame?.querySelector("img");
     if (photo) openPhoto(photo);
   });
 
   document.addEventListener("keydown", (event) => {
-    const photo = event.target.closest?.(".plate .frame img");
+    const frame = event.target.closest?.(".plate .frame");
+    const photo = frame?.querySelector("img");
     if (photo && (event.key === "Enter" || event.key === " ")) {
       event.preventDefault();
       openPhoto(photo);
