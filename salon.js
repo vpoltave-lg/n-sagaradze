@@ -118,15 +118,21 @@ function setupPhotoViewer() {
   document.body.appendChild(dialog);
 
   function openPhoto(photo) {
-    const sourcePath = photo.getAttribute("src") || "";
+    // Use the original JPEG/PNG path even after the thumbnail switches to WebP.
+    const sourcePath = photo.dataset.originalSrc || photo.getAttribute("src") || "";
     const fileName = decodeURIComponent(sourcePath.split("/").pop());
-    largePhoto.dataset.fallbackSrc = photo.currentSrc || photo.src;
-    largePhoto.onerror = () => {
-      largePhoto.onerror = null;
-      largePhoto.src = largePhoto.dataset.fallbackSrc;
-    };
-    largePhoto.src = colorPhotoSources.get(fileName) || photo.dataset.fullSrc || photo.currentSrc || photo.src;
+    const fallbackSrc = photo.currentSrc || photo.src;
+    const colorSrc = colorPhotoSources.get(fileName);
+
+    largePhoto.onerror = null;
     largePhoto.alt = photo.alt;
+    largePhoto.src = colorSrc || photo.dataset.fullSrc || fallbackSrc;
+    if (colorSrc) {
+      largePhoto.onerror = () => {
+        largePhoto.onerror = null;
+        largePhoto.src = fallbackSrc;
+      };
+    }
     dialog.showModal();
   }
 
@@ -183,6 +189,8 @@ setupPhotoViewer();
       return;
     }
 
+    // Keep the original file path for color-photo lookup in the viewer.
+    img.dataset.originalSrc = originalSrc;
     const webpSrc = originalSrc.replace(/\.(jpe?g|png)$/i, ".webp");
 
     // Если WebP отсутствует или не загрузился, оставляем исходное изображение.
