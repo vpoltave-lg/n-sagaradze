@@ -101,20 +101,20 @@ function getColorPhotoCandidates(photo) {
   if (!match) return [];
 
   const [, originalBase, originalExtension] = match;
-  const underscored = originalBase.trim().replace(/\s+/g, "_");
-  const cleaned = underscored
-    .replace(/,/g, "")
-    .replace(/_-_/g, "-")
-    .replace(/in_national/g, "in-national");
-  const bases = [...new Set([underscored, cleaned])];
-  const extensions = [
-    ...new Set([originalExtension.toLowerCase(), "jpg", "jpeg", "webp", "png"]),
+  const extension = originalExtension.toLowerCase();
+
+  // Два правила имени, оба заканчиваются на "_c":
+  // 1) новое — имя оригинала как есть (с пробелами);
+  // 2) старое — пробелы заменены на "_".
+  const bases = [
+    originalBase,
+    originalBase.trim().replace(/\s+/g, "_"),
   ];
 
   const names = [];
   (legacyColorPhotoNames.get(fileName) || []).forEach((name) => names.push(name));
   bases.forEach((base) => {
-    extensions.forEach((extension) => names.push(`${base}_c.${extension}`));
+    names.push(`${base}_c.${extension}`);
   });
   if (fileName === "Telemak Gurieli in national clothes.jpg") {
     names.push("Telemak_Gurieli_in_national _clothes_c.jpg");
