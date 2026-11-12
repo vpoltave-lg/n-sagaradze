@@ -117,7 +117,7 @@ function getColorPhotoCandidates(photo) {
     names.push(`${base}_c.${extension}`);
   });
   if (fileName === "Telemak Gurieli in national clothes.jpg") {
-    names.push("Telemak_Gurieli_in_national _clothes_c.jpg");
+    names.push("Telemak_Gurieli_in_national_clothes_c.jpg");
   }
 
   return [...new Set(names.map(atelierFile))];
