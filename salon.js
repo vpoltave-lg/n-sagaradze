@@ -6,7 +6,6 @@ function bind(plate) {
   if (!src) return;
 
   const opening = plate.querySelector(".opening") || plate.querySelector(".oval-opening");
-
   const meta = plate.querySelector(".slip-meta");
   const stillMeta = meta ? meta.textContent : "";
   let video = null;
@@ -31,10 +30,10 @@ function bind(plate) {
       video.playsInline = true;
       video.autoplay = true;
       video.src = src;
-      video.addEventListener("playing", () => {
+      video.addEventListener("playing", function () {
         video.classList.add("is-on");
       });
-      video.addEventListener("error", () => {
+      video.addEventListener("error", function () {
         failed = true;
         stop();
         if (meta) meta.textContent = "";
@@ -43,37 +42,39 @@ function bind(plate) {
     }
     plate.classList.add("is-live");
     if (meta) meta.textContent = "";
-    video.play().catch(() => {});
+    video.play().catch(function () {});
   }
 
-  plate.addEventListener("mouseenter", () => {
+  plate.addEventListener("mouseenter", function () {
     if (fineQuery.matches) play();
   });
-  plate.addEventListener("mouseleave", () => {
+  plate.addEventListener("mouseleave", function () {
     if (fineQuery.matches) stop();
   });
 
   const observer = new IntersectionObserver(
-    ([entry]) => {
+    function (entries) {
+      const entry = entries[0];
       if (fineQuery.matches || reduceQuery.matches) return;
       if (entry.isIntersecting) play();
       else stop();
     },
-    { rootMargin: "-28% 0px -28% 0px", threshold: 0.2 },
+    { rootMargin: "-28% 0px -28% 0px", threshold: 0.2 }
   );
   observer.observe(plate);
 
-  const halt = () => {
+  fineQuery.addEventListener("change", function () {
     if (reduceQuery.matches) stop();
-  };
-  fineQuery.addEventListener("change", halt);
-  reduceQuery.addEventListener("change", halt);
+  });
+  reduceQuery.addEventListener("change", function () {
+    if (reduceQuery.matches) stop();
+  });
 }
 
 document.querySelectorAll(".plate[data-motion]").forEach(bind);
 
 const legacyColorPhotoNames = new Map([
-  ["Gurian in national clothes.jpg", ["Gurian_in_national_clothes.jpg"]],
+  ["Gurian in national clothes.jpg", ["Gurian_in_national_clothes.jpg"]]
 ]);
 
 function atelierFile(name) {
@@ -84,7 +85,7 @@ function getPhotoFileName(src) {
   if (!src) return "";
   try {
     return decodeURIComponent(new URL(src, document.baseURI).pathname.split("/").pop());
-  } catch {
+  } catch (error) {
     return decodeURIComponent(src.split("/").pop());
   }
 }
@@ -98,23 +99,73 @@ function getColorPhotoCandidates(photo) {
   const originalBase = match[1];
   const extension = match[2].toLowerCase();
   const underscored = originalBase.trim().replace(/\s+/g, "_");
-  const cleaned = underscored
-    .replace(/,/g, "")
-    .replace(/_-_/g, "-")
-    .replace(/in_national/g, "in-national");
-  const bases = [...new Set([originalBase, underscored, cleaned])];
-  const extensions = [...new Set([extension, "jpg", "jpeg", "png", "webp"])];
+  const cleaned = underscored.replace(/,/g, "").replace(/_-_/g, "-").replace(/in_national/g, "in-national");
+  const bases = [];
+  [originalBase, underscored, cleaned].forEach(function (base) {
+    if (bases.indexOf(base) === -1) bases.push(base);
+  });
+  const extensions = [];
+  [extension, "jpg", "jpeg", "png", "webp"].forEach(function (ext) {
+    if (extensions.indexOf(ext) === -1) extensions.push(ext);
+  });
 
   const names = [];
-  (legacyColorPhotoNames.get(fileName) || []).forEach((name) => names.push(name));
-  bases.forEach((base) => names.push(base + "_c." + extension));
-  bases.forEach((base) => {
-    extensions.forEach((ext) => {
+  (legacyColorPhotoNames.get(fileName) || []).forEach(function (name) {
+    names.push(name);
+  });
+  bases.forEach(function (base) {
+    names.push(base + "_c." + extension);
+  });
+  bases.forEach(function (base) {
+    extensions.forEach(function (ext) {
       if (ext !== extension) names.push(base + "_c." + ext);
     });
   });
 
-  return [...new Set(names.map(atelierFile))];
+  const urls = [];
+  names.forEach(function (name) {
+    const url = atelierFile(name);
+    if (urls.indexOf(url) === -1) urls.push(url);
+  });
+  return urls;
+}
+
+function firstLoaded(urls) {
+  return new Promise(function (resolve) {
+    if (!urls.length) {
+      resolve("");
+      return;
+    }
+    let pending = urls.length;
+    let settled = false;
+    urls.forEach(function (url) {
+      const probe = new Image();
+      const timer = setTimeout(function () {
+        finish(false);
+      }, 4000);
+      function finish(ok) {
+        if (settled) return;
+        clearTimeout(timer);
+        if (ok) {
+          settled = true;
+          resolve(url);
+          return;
+        }
+        pending -= 1;
+        if (pending === 0) {
+          settled = true;
+          resolve("");
+        }
+      }
+      probe.onload = function () {
+        finish(probe.naturalWidth > 0);
+      };
+      probe.onerror = function () {
+        finish(false);
+      };
+      probe.src = url;
+    });
+  });
 }
 
 function setupPhotoViewer() {
@@ -141,98 +192,79 @@ function setupPhotoViewer() {
   dialog.append(closeButton, largePhoto);
   document.body.appendChild(dialog);
 
+  let ticket = 0;
+
   function openPhoto(photo) {
     const fallbackSrc = photo.dataset.originalSrc || photo.currentSrc || photo.src;
     const candidates = getColorPhotoCandidates(photo);
-    let candidateIndex = 0;
-
-    largePhoto.onerror = null;
+    const current = ++ticket;
     largePhoto.alt = photo.alt;
+    largePhoto.removeAttribute("src");
+    dialog.showModal();
 
     if (!candidates.length) {
-      largePhoto.src = photo.dataset.fullSrc || fallbackSrc;
-    } else {
-      largePhoto.onerror = () => {
-        if (candidateIndex < candidates.length) {
-          largePhoto.src = candidates[candidateIndex++];
-          return;
-        }
-        largePhoto.onerror = null;
-        largePhoto.src = photo.dataset.fullSrc || fallbackSrc;
-      };
-      largePhoto.src = candidates[candidateIndex++];
+      largePhoto.src = fallbackSrc;
+      return;
     }
 
-    dialog.showModal();
+    firstLoaded(candidates).then(function (url) {
+      if (current !== ticket || !dialog.open) return;
+      largePhoto.src = url || fallbackSrc;
+    });
   }
 
-  photos.forEach((photo) => {
+  photos.forEach(function (photo) {
     photo.tabIndex = 0;
     photo.setAttribute("role", "button");
     photo.setAttribute("aria-label", "Відкрити фотографію: " + photo.alt);
   });
 
-  document.addEventListener("click", (event) => {
-    const frame = event.target.closest?.(".plate .frame");
-    const photo = frame?.querySelector("img");
+  document.addEventListener("click", function (event) {
+    const frame = event.target.closest && event.target.closest(".plate .frame");
+    const photo = frame && frame.querySelector("img");
     if (photo) openPhoto(photo);
   });
 
-  document.addEventListener("keydown", (event) => {
-    const frame = event.target.closest?.(".plate .frame");
-    const photo = frame?.querySelector("img");
+  document.addEventListener("keydown", function (event) {
+    const frame = event.target.closest && event.target.closest(".plate .frame");
+    const photo = frame && frame.querySelector("img");
     if (photo && (event.key === "Enter" || event.key === " ")) {
       event.preventDefault();
       openPhoto(photo);
     }
   });
 
-  closeButton.addEventListener("click", () => dialog.close());
-  dialog.addEventListener("click", (event) => {
+  closeButton.addEventListener("click", function () {
+    dialog.close();
+  });
+  dialog.addEventListener("click", function (event) {
     if (event.target === dialog) dialog.close();
   });
 }
 
 setupPhotoViewer();
 
-(() => {
-  const supportsWebp = (() => {
-    try {
-      const canvas = document.createElement("canvas");
-      return (
-        typeof canvas.toDataURL === "function" &&
-        canvas.toDataURL("image/webp").startsWith("data:image/webp")
-      );
-    } catch {
-      return false;
-    }
-  })();
-
+(function () {
+  let supportsWebp = false;
+  try {
+    const canvas = document.createElement("canvas");
+    supportsWebp = typeof canvas.toDataURL === "function" && canvas.toDataURL("image/webp").indexOf("data:image/webp") === 0;
+  } catch (error) {
+    supportsWebp = false;
+  }
   if (!supportsWebp) return;
 
-  const images = document.querySelectorAll("img[src]");
-
-  images.forEach((img) => {
+  document.querySelectorAll("img[src]").forEach(function (img) {
     const originalSrc = img.getAttribute("src");
     if (!originalSrc) return;
-
     const normalizedSrc = originalSrc.toLowerCase();
-    if (!normalizedSrc.includes("atelier/") || !/\.(jpe?g|png)$/.test(normalizedSrc)) {
-      return;
-    }
+    if (normalizedSrc.indexOf("atelier/") === -1 || !/\.(jpe?g|png)$/.test(normalizedSrc)) return;
 
     img.dataset.originalSrc = originalSrc;
-    const webpSrc = originalSrc.replace(/\.(jpe?g|png)$/i, ".webp");
-
-    img.addEventListener(
-      "error",
-      () => {
-        img.src = originalSrc;
-      },
-      { once: true },
-    );
-
+    img.addEventListener("error", function () {
+      img.src = originalSrc;
+    }, { once: true });
     img.decoding = "async";
-    img.src = webpSrc;
+    img.src = originalSrc.replace(/\.(jpe?g|png)$/i, ".webp");
   });
 })();
