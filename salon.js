@@ -5,7 +5,6 @@ function bind(plate) {
   const src = plate.dataset.motion;
   if (!src) return;
 
-  // Безпечний вибір: шукаємо .opening, якщо немає — .oval-opening
   const opening = plate.querySelector(".opening") || plate.querySelector(".oval-opening");
 
   const meta = plate.querySelector(".slip-meta");
@@ -73,16 +72,12 @@ function bind(plate) {
 
 document.querySelectorAll(".plate[data-motion]").forEach(bind);
 
-// Colour file: spaces become underscores, then _c before the extension.
-// A few uploads also dropped a comma, turned " - " into "-", or wrote
-// "in-national" instead of "in_national". Those variants are tried too.
-// If none of them exist, the viewer stays on the original photograph.
 const legacyColorPhotoNames = new Map([
   ["Gurian in national clothes.jpg", ["Gurian_in_national_clothes.jpg"]],
 ]);
 
 function atelierFile(name) {
-  return `atelier/${encodeURIComponent(name).replace(/'/g, "%27")}`;
+  return "atelier/" + encodeURIComponent(name).replace(/'/g, "%27");
 }
 
 function getPhotoFileName(src) {
@@ -100,8 +95,8 @@ function getColorPhotoCandidates(photo) {
   const match = fileName.match(/^(.*)\.(jpe?g|png|webp)$/i);
   if (!match) return [];
 
-  const [, originalBase, originalExtension] = match;
-  const extension = originalExtension.toLowerCase();
+  const originalBase = match[1];
+  const extension = match[2].toLowerCase();
   const underscored = originalBase.trim().replace(/\s+/g, "_");
   const cleaned = underscored
     .replace(/,/g, "")
@@ -112,10 +107,10 @@ function getColorPhotoCandidates(photo) {
 
   const names = [];
   (legacyColorPhotoNames.get(fileName) || []).forEach((name) => names.push(name));
-  bases.forEach((base) => names.push(`\( {base}_c. \){extension}`));
+  bases.forEach((base) => names.push(base + "_c." + extension));
   bases.forEach((base) => {
     extensions.forEach((ext) => {
-      if (ext !== extension) names.push(`\( {base}_c. \){ext}`);
+      if (ext !== extension) names.push(base + "_c." + ext);
     });
   });
 
@@ -174,7 +169,7 @@ function setupPhotoViewer() {
   photos.forEach((photo) => {
     photo.tabIndex = 0;
     photo.setAttribute("role", "button");
-    photo.setAttribute("aria-label", `Відкрити фотографію: ${photo.alt}`);
+    photo.setAttribute("aria-label", "Відкрити фотографію: " + photo.alt);
   });
 
   document.addEventListener("click", (event) => {
@@ -226,11 +221,9 @@ setupPhotoViewer();
       return;
     }
 
-    // Keep the original file path for color-photo lookup in the viewer.
     img.dataset.originalSrc = originalSrc;
     const webpSrc = originalSrc.replace(/\.(jpe?g|png)$/i, ".webp");
 
-    // Если WebP отсутствует или не загрузился, оставляем исходное изображение.
     img.addEventListener(
       "error",
       () => {
