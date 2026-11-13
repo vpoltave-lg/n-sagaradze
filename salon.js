@@ -102,19 +102,21 @@ function getColorPhotoCandidates(photo) {
 
   const [, originalBase, originalExtension] = match;
   const extension = originalExtension.toLowerCase();
-
-  // Два правила имени, оба заканчиваются на "_c":
-  // 1) новое — имя оригинала как есть (с пробелами);
-  // 2) старое — пробелы заменены на "_".
-  const bases = [
-    originalBase,
-    originalBase.trim().replace(/\s+/g, "_"),
-  ];
+  const underscored = originalBase.trim().replace(/\s+/g, "_");
+  const cleaned = underscored
+    .replace(/,/g, "")
+    .replace(/_-_/g, "-")
+    .replace(/in_national/g, "in-national");
+  const bases = [...new Set([originalBase, underscored, cleaned])];
+  const extensions = [...new Set([extension, "jpg", "jpeg", "png", "webp"])];
 
   const names = [];
   (legacyColorPhotoNames.get(fileName) || []).forEach((name) => names.push(name));
+  bases.forEach((base) => names.push(`\( {base}_c. \){extension}`));
   bases.forEach((base) => {
-    names.push(`${base}_c.${extension}`);
+    extensions.forEach((ext) => {
+      if (ext !== extension) names.push(`\( {base}_c. \){ext}`);
+    });
   });
 
   return [...new Set(names.map(atelierFile))];
