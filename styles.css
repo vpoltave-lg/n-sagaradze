@@ -530,3 +530,51 @@ button.plate-hit:focus-visible {
     transition: none;
   }
 }
+.archive-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 1.35rem;
+  padding-top: 1rem;
+}
+
+.archive-links::before {
+  content: "";
+  width: 4.25rem;
+  height: 1px;
+  margin-bottom: 0.45rem;
+  background: color-mix(in srgb, var(--color-gilt) 65%, transparent);
+}
+
+.archive-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.1rem;
+  background: none;
+  border: 0;
+  box-shadow: none;
+  color: var(--color-gilt);
+  font-style: italic;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+}
+
+.archive-link:hover,
+.archive-link:focus-visible {
+  color: var(--color-paper);
+  outline: none;
+}
+
+.archive-icon {
+  width: 0.85rem;
+  height: 0.85rem;
+  flex: none;
+  color: var(--color-gilt);
+}
+
+.archive-link-plain {
+  color: var(--color-muted);
+}
