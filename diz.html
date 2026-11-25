@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Фон у стилі Дії (Mesh + гіроскоп та миша)</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #111827;
+    }
+
+    /* Контейнер фону */
+    .diia-bg {
+      position: fixed; /* Замініть на absolute, якщо фон потрібен лише всередині окремого блока */
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+      background-color: #eef4f8;
+      pointer-events: none;
+    }
+
+    /* Обгортка для реакції на мишу та гіроскоп */
+    .blob-wrap {
+      position: absolute;
+      inset: 0;
+      will-change: transform;
+      transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* Кольорові плями mesh-градієнту */
+    .diia-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.85;
+      will-change: transform;
+    }
+
+    /* 1. Небесно-блакитний */
+    .blob-1 {
+      width: 55vw;
+      height: 55vw;
+      min-width: 350px;
+      min-height: 350px;
+      background: #a3d5ff;
+      top: -15%;
+      left: -10%;
+      animation: moveBlob1 18s ease-in-out infinite alternate;
+    }
+
+    /* 2. М'ятно-бірюзовий */
+    .blob-2 {
+      width: 50vw;
+      height: 50vw;
+      min-width: 320px;
+      min-height: 320px;
+      background: #b8f2e6;
+      top: 25%;
+      right: -15%;
+      animation: moveBlob2 22s ease-in-out infinite alternate;
+    }
+
+    /* 3. Ніжно-лавандовий */
+    .blob-3 {
+      width: 60vw;
+      height: 60vw;
+      min-width: 360px;
+      min-height: 360px;
+      background: #d8c8ff;
+      bottom: -20%;
+      left: 15%;
+      animation: moveBlob3 25s ease-in-out infinite alternate;
+    }
+
+    /* 4. Теплий персиково-рожевий відблиск */
+    .blob-4 {
+      width: 40vw;
+      height: 40vw;
+      min-width: 280px;
+      min-height: 280px;
+      background: #ffd6e0;
+      bottom: 10%;
+      right: 10%;
+      animation: moveBlob4 20s ease-in-out infinite alternate;
+    }
+
+    @keyframes moveBlob1 {
+      0%   { transform: translate(0, 0) scale(1); }
+      50%  { transform: translate(15vw, 10vh) scale(1.15); }
+      100% { transform: translate(5vw, 25vh) scale(0.95); }
+    }
+
+    @keyframes moveBlob2 {
+      0%   { transform: translate(0, 0) scale(1.05); }
+      50%  { transform: translate(-20vw, 15vh) scale(0.9); }
+      100% { transform: translate(-10vw, -15vh) scale(1.1); }
+    }
+
+    @keyframes moveBlob3 {
+      0%   { transform: translate(0, 0) scale(0.95); }
+      50%  { transform: translate(12vw, -18vh) scale(1.1); }
+      100% { transform: translate(-15vw, -10vh) scale(1); }
+    }
+
+    @keyframes moveBlob4 {
+      0%   { transform: translate(0, 0) scale(1); }
+      50%  { transform: translate(-15vw, -20vh) scale(1.2); }
+      100% { transform: translate(10vw, -5vh) scale(0.9); }
+    }
+
+    /* Приклад картки поверх фону (glassmorphism) */
+    .demo-content {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .card {
+      max-width: 480px;
+      width: 100%;
+      padding: 28px;
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: 24px;
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
+    }
+
+    .card h1 {
+      margin: 0 0 10px;
+      font-size: 22px;
+    }
+
+    .card p {
+      margin: 0;
+      line-height: 1.55;
+      color: #374151;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .diia-blob {
+        animation: none;
+      }
+      .blob-wrap {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Анімований фон -->
+  <div class="diia-bg" aria-hidden="true">
+    <div class="blob-wrap" data-depth="0.04"><div class="diia-blob blob-1"></div></div>
+    <div class="blob-wrap" data-depth="-0.06"><div class="diia-blob blob-2"></div></div>
+    <div class="blob-wrap" data-depth="0.05"><div class="diia-blob blob-3"></div></div>
+    <div class="blob-wrap" data-depth="-0.03"><div class="diia-blob blob-4"></div></div>
+  </div>
+
+  <!-- Приклад контенту поверх фону (можна видалити при вбудовуванні на сайт) -->
+  <main class="demo-content">
+    <div class="card">
+      <h1>Перевірте фон у русі</h1>
+      <p>Поведіть курсором по екрану або нахиліть смартфон — градієнт плавно зміщуватиметься слідом за рухом.</p>
+    </div>
+  </main>
+
+  <script>
+    (() => {
+      const wraps = document.querySelectorAll('.diia-bg .blob-wrap');
+      if (!wraps.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      let targetX = 0;
+      let targetY = 0;
+      let currentX = 0;
+      let currentY = 0;
+      const maxShift = 180;
+
+      // Рух миші на десктопі
+      window.addEventListener('mousemove', (e) => {
+        targetX = (e.clientX / window.innerWidth - 0.5) * 2;
+        targetY = (e.clientY / window.innerHeight - 0.5) * 2;
+      }, { passive: true });
+
+      // Нахил смартфона (гіроскоп / акселерометр)
+      const handleOrientation = (e) => {
+        if (e.gamma === null || e.beta === null) return;
+        const gamma = Math.max(-35, Math.min(35, e.gamma));
+        const beta = Math.max(-35, Math.min(35, e.beta - 45));
+        targetX = gamma / 35;
+        targetY = beta / 35;
+      };
+
+      // Запит дозволу для iOS 13+ при першому дотику
+      const initGyro = () => {
+        if (
+          typeof DeviceOrientationEvent !== 'undefined' &&
+          typeof DeviceOrientationEvent.requestPermission === 'function'
+        ) {
+          DeviceOrientationEvent.requestPermission()
+            .then((state) => {
+              if (state === 'granted') {
+                window.addEventListener('deviceorientation', handleOrientation, { passive: true });
+              }
+            })
+            .catch(() => {});
+        } else {
+          window.addEventListener('deviceorientation', handleOrientation, { passive: true });
+        }
+        window.removeEventListener('touchstart', initGyro);
+      };
+
+      window.addEventListener('touchstart', initGyro, { passive: true });
+
+      if (
+        typeof DeviceOrientationEvent !== 'undefined' &&
+        typeof DeviceOrientationEvent.requestPermission !== 'function'
+      ) {
+        window.addEventListener('deviceorientation', handleOrientation, { passive: true });
+      }
+
+      // Плавна інтерполяція через requestAnimationFrame
+      const animate = () => {
+        currentX += (targetX - currentX) * 0.08;
+        currentY += (targetY - currentY) * 0.08;
+
+        for (let i = 0; i < wraps.length; i++) {
+          const depth = parseFloat(wraps[i].dataset.depth) || 0.05;
+          const moveX = (currentX * maxShift * depth * 10).toFixed(2);
+          const moveY = (currentY * maxShift * depth * 10).toFixed(2);
+          wraps[i].style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
+        }
+
+        requestAnimationFrame(animate);
+      };
+
+      requestAnimationFrame(animate);
+    })();
+  </script>
+</body>
+</html>
