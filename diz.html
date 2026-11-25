@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Фон у стилі Дії — з темно-фіолетовим та лимонним</title>
+  <title>Фон у стилі Дії — точний дрейф по відео</title>
   <style>
     * {
       box-sizing: border-box;
@@ -14,48 +14,67 @@
       min-height: 100vh;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       color: #111827;
+      overflow-x: hidden;
     }
 
-    /* Контейнер фону */
+    /* Контейнер фону (завжди на весь екран) */
     .diia-bg {
       position: fixed;
       inset: 0;
       z-index: -1;
-      overflow: hidden;
-      background-color: #dcd6ec;
       pointer-events: none;
     }
 
-    /* Шари, що реагують на рух миші / нахил телефону */
-    .diia-layer {
+    /* Шар анімованого градієнту (в 3 рази більше екрану для циклічного руху) */
+    .diia-gradient-layer {
       position: absolute;
-      inset: -12%;
-      will-change: transform, opacity;
+      top: -100%;
+      left: -100%;
+      width: 300%;
+      height: 300%;
+      /* Точна палітра: фіолетовий -> блакитний -> жовтий -> фіолетовий */
+      background: linear-gradient(
+        158deg,
+        #b6a0df 0%,
+        #d4eef6 50%,
+        #f3ebba 75%,
+        #b6a0df 100%
+      );
+      /* Розмиття для м'якості переходів */
+      filter: blur(45px);
+      /* Безперервна повільна анімація дрейфу за 24 секунди (один повний цикл візерунка за ~5 сек) */
+      animation: driftBackground 24s linear infinite;
+      will-change: transform;
+      /* Додаємо прозорість, щоб вона не була надто насиченою */
+      opacity: 0.95;
     }
 
-    /* Стан 1: темно-фіолетовий верхній акцент -> блакитний -> лимонно-жовтий низ */
-    .layer-state-1 {
-      background:
-        radial-gradient(circle at 18% 12%, rgba(154, 130, 204, 0.78) 0%, rgba(154, 130, 204, 0) 56%),
-        radial-gradient(circle at 65% 18%, rgba(182, 165, 224, 0.72) 0%, rgba(182, 165, 224, 0) 58%),
-        radial-gradient(circle at 82% 58%, rgba(206, 236, 247, 0.88) 0%, rgba(206, 236, 247, 0) 60%),
-        radial-gradient(circle at 30% 85%, rgba(243, 235, 178, 0.96) 0%, rgba(243, 235, 178, 0) 62%),
-        linear-gradient(155deg, #a792d4 0%, #d8eff7 50%, #f2e8b2 100%);
-      opacity: 1;
+    /* Циклічний рух фонової картинки */
+    @keyframes driftBackground {
+      0% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+      100% {
+        transform: translate(50px, 50px) rotate(0.1deg); /* Легкий діагональний дрейф */
+      }
     }
 
-    /* Стан 2: фаза зміщується — темно-фіолетовий перетікає праворуч/вниз, лимонний і блакить рухаються назустріч */
-    .layer-state-2 {
-      background:
-        radial-gradient(circle at 76% 14%, rgba(150, 126, 200, 0.78) 0%, rgba(150, 126, 200, 0) 56%),
-        radial-gradient(circle at 22% 24%, rgba(242, 236, 184, 0.90) 0%, rgba(242, 236, 184, 0) 58%),
-        radial-gradient(circle at 26% 80%, rgba(208, 238, 248, 0.90) 0%, rgba(208, 238, 248, 0) 60%),
-        radial-gradient(circle at 76% 84%, rgba(244, 237, 182, 0.95) 0%, rgba(244, 237, 182, 0) 62%),
-        linear-gradient(142deg, #e7e9c4 0%, #d4eef6 48%, #b39edc 100%);
-      opacity: 0;
+    /* Внутрішній додатковий шар для мерехтіння (пульсації прозорості) */
+    .diia-shine-layer {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 40% 60%, rgba(255, 255, 255, 0.6) 0%, transparent 60%),
+                  radial-gradient(circle at 60% 40%, rgba(210, 238, 248, 0.5) 0%, transparent 70%);
+      animation: pulseShine 6s ease-in-out infinite alternate;
+      opacity: 0.6;
     }
 
-    /* Приклад картки поверх фону */
+    @keyframes pulseShine {
+      0% { opacity: 0.4; }
+      100% { opacity: 0.75; }
+    }
+
+    /* Демо-картка як у Дії */
     .demo-content {
       min-height: 100vh;
       display: grid;
@@ -68,15 +87,16 @@
       width: 100%;
       aspect-ratio: 3 / 4;
       padding: 28px;
-      background: rgba(255, 255, 255, 0.78);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
+      background: #ffffff;
       border-radius: 28px;
       box-shadow: 0 12px 36px rgba(31, 41, 55, 0.06);
       display: flex;
       flex-direction: column;
       justify-content: center;
       text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
 
     .card h1 {
@@ -96,95 +116,16 @@
 <body>
 
   <div class="diia-bg" aria-hidden="true">
-    <div class="diia-layer layer-state-1" id="diiaLayer1"></div>
-    <div class="diia-layer layer-state-2" id="diiaLayer2"></div>
+    <div class="diia-gradient-layer"></div>
+    <div class="diia-shine-layer"></div>
   </div>
 
   <main class="demo-content">
     <div class="card">
-      <h1>Повна палітра з темно-фіолетовим</h1>
-      <p>Темно-фіолетовий, лаванда, блакитний та лимонно-жовтий плавно перетікають із циклом 4 секунди.</p>
+      <h1>Дрейфуючий фон Дія</h1>
+      <p>Плавний діагональний перелив із безперервною анімацією, що імітує рух на відео.</p>
     </div>
   </main>
 
-  <script>
-    (() => {
-      const layer1 = document.getElementById('diiaLayer1');
-      const layer2 = document.getElementById('diiaLayer2');
-      if (!layer1 || !layer2) return;
-
-      // Тривалість переходу між станами — 4000 мс (4 секунди)
-      const halfPeriodMs = 4000;
-
-      let targetX = 0;
-      let targetY = 0;
-      let currentX = 0;
-      let currentY = 0;
-      const maxShift = 28;
-
-      window.addEventListener('mousemove', (e) => {
-        targetX = (e.clientX / window.innerWidth - 0.5) * 2;
-        targetY = (e.clientY / window.innerHeight - 0.5) * 2;
-      }, { passive: true });
-
-      const handleOrientation = (e) => {
-        if (e.gamma === null || e.beta === null) return;
-        const gamma = Math.max(-35, Math.min(35, e.gamma));
-        const beta = Math.max(-35, Math.min(35, e.beta - 45));
-        targetX = gamma / 35;
-        targetY = beta / 35;
-      };
-
-      const initGyro = () => {
-        if (
-          typeof DeviceOrientationEvent !== 'undefined' &&
-          typeof DeviceOrientationEvent.requestPermission === 'function'
-        ) {
-          DeviceOrientationEvent.requestPermission()
-            .then((state) => {
-              if (state === 'granted') {
-                window.addEventListener('deviceorientation', handleOrientation, { passive: true });
-              }
-            })
-            .catch(() => {});
-        } else {
-          window.addEventListener('deviceorientation', handleOrientation, { passive: true });
-        }
-        window.removeEventListener('touchstart', initGyro);
-      };
-
-      window.addEventListener('touchstart', initGyro, { passive: true });
-
-      if (
-        typeof DeviceOrientationEvent !== 'undefined' &&
-        typeof DeviceOrientationEvent.requestPermission !== 'function'
-      ) {
-        window.addEventListener('deviceorientation', handleOrientation, { passive: true });
-      }
-
-      const animate = (now) => {
-        const phase = (now / halfPeriodMs) * Math.PI;
-        const blend = (1 - Math.cos(phase)) * 0.5;
-
-        layer2.style.opacity = blend.toFixed(4);
-
-        currentX += (targetX - currentX) * 0.08;
-        currentY += (targetY - currentY) * 0.08;
-
-        const shiftX1 = (currentX * maxShift + Math.sin(phase) * 14).toFixed(2);
-        const shiftY1 = (currentY * maxShift + Math.cos(phase) * 10).toFixed(2);
-
-        const shiftX2 = (-currentX * maxShift * 0.8 - Math.sin(phase) * 14).toFixed(2);
-        const shiftY2 = (-currentY * maxShift * 0.8 - Math.cos(phase) * 10).toFixed(2);
-
-        layer1.style.transform = `translate3d(${shiftX1}px, ${shiftY1}px, 0)`;
-        layer2.style.transform = `translate3d(${shiftX2}px, ${shiftY2}px, 0)`;
-
-        requestAnimationFrame(animate);
-      };
-
-      requestAnimationFrame(animate);
-    })();
-  </script>
 </body>
 </html>
