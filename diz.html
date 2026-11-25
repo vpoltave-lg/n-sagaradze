@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Фон у стилі Дії — точний перелив 4 сек</title>
+  <title>Фон у стилі Дії — з темно-фіолетовим та лимонним</title>
   <style>
     * {
       box-sizing: border-box;
@@ -22,7 +22,7 @@
       inset: 0;
       z-index: -1;
       overflow: hidden;
-      background-color: #e4eef5;
+      background-color: #dcd6ec;
       pointer-events: none;
     }
 
@@ -33,27 +33,29 @@
       will-change: transform, opacity;
     }
 
-    /* Стан 1 (скріншот 1): верхній лівий лимонно-м'ятний -> блакитний -> нижній правий лавандовий */
+    /* Стан 1: темно-фіолетовий верхній акцент -> блакитний -> лимонно-жовтий низ */
     .layer-state-1 {
       background:
-        radial-gradient(circle at 15% 18%, rgba(238, 245, 214, 0.95) 0%, rgba(238, 245, 214, 0) 58%),
-        radial-gradient(circle at 82% 22%, rgba(210, 238, 248, 0.85) 0%, rgba(210, 238, 248, 0) 60%),
-        radial-gradient(circle at 85% 84%, rgba(218, 210, 243, 0.95) 0%, rgba(218, 210, 243, 0) 62%),
-        linear-gradient(148deg, #edf4d8 0%, #d8eff7 50%, #dcd4f2 100%);
+        radial-gradient(circle at 18% 12%, rgba(154, 130, 204, 0.78) 0%, rgba(154, 130, 204, 0) 56%),
+        radial-gradient(circle at 65% 18%, rgba(182, 165, 224, 0.72) 0%, rgba(182, 165, 224, 0) 58%),
+        radial-gradient(circle at 82% 58%, rgba(206, 236, 247, 0.88) 0%, rgba(206, 236, 247, 0) 60%),
+        radial-gradient(circle at 30% 85%, rgba(243, 235, 178, 0.96) 0%, rgba(243, 235, 178, 0) 62%),
+        linear-gradient(155deg, #a792d4 0%, #d8eff7 50%, #f2e8b2 100%);
       opacity: 1;
     }
 
-    /* Стан 2 (скріншот 2): верхній лівий лавандовий -> блакитний -> нижній правий м'ятно-лимонний */
+    /* Стан 2: фаза зміщується — темно-фіолетовий перетікає праворуч/вниз, лимонний і блакить рухаються назустріч */
     .layer-state-2 {
       background:
-        radial-gradient(circle at 18% 16%, rgba(216, 208, 242, 0.95) 0%, rgba(216, 208, 242, 0) 60%),
-        radial-gradient(circle at 78% 72%, rgba(208, 238, 248, 0.85) 0%, rgba(208, 238, 248, 0) 60%),
-        radial-gradient(circle at 22% 86%, rgba(239, 245, 213, 0.95) 0%, rgba(239, 245, 213, 0) 62%),
-        linear-gradient(148deg, #dad2f0 0%, #d5eef6 52%, #edf4d8 100%);
+        radial-gradient(circle at 76% 14%, rgba(150, 126, 200, 0.78) 0%, rgba(150, 126, 200, 0) 56%),
+        radial-gradient(circle at 22% 24%, rgba(242, 236, 184, 0.90) 0%, rgba(242, 236, 184, 0) 58%),
+        radial-gradient(circle at 26% 80%, rgba(208, 238, 248, 0.90) 0%, rgba(208, 238, 248, 0) 60%),
+        radial-gradient(circle at 76% 84%, rgba(244, 237, 182, 0.95) 0%, rgba(244, 237, 182, 0) 62%),
+        linear-gradient(142deg, #e7e9c4 0%, #d4eef6 48%, #b39edc 100%);
       opacity: 0;
     }
 
-    /* Приклад картки як у Дії */
+    /* Приклад картки поверх фону */
     .demo-content {
       min-height: 100vh;
       display: grid;
@@ -66,7 +68,9 @@
       width: 100%;
       aspect-ratio: 3 / 4;
       padding: 28px;
-      background: #ffffff;
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
       border-radius: 28px;
       box-shadow: 0 12px 36px rgba(31, 41, 55, 0.06);
       display: flex;
@@ -98,8 +102,8 @@
 
   <main class="demo-content">
     <div class="card">
-      <h1>Перелив 4 секунди</h1>
-      <p>Верхній м'ятно-кремовий та нижній лавандовий плавно міняються місцями по діагоналі кожні 4 секунди.</p>
+      <h1>Повна палітра з темно-фіолетовим</h1>
+      <p>Темно-фіолетовий, лаванда, блакитний та лимонно-жовтий плавно перетікають із циклом 4 секунди.</p>
     </div>
   </main>
 
@@ -109,14 +113,14 @@
       const layer2 = document.getElementById('diiaLayer2');
       if (!layer1 || !layer2) return;
 
-      // Тривалість переходу від стану 1 до стану 2 — 4000 мс (4 секунди)
+      // Тривалість переходу між станами — 4000 мс (4 секунди)
       const halfPeriodMs = 4000;
 
       let targetX = 0;
       let targetY = 0;
       let currentX = 0;
       let currentY = 0;
-      const maxShift = 28; // М'який зсув при нахилі чи русі миші (в пікселях)
+      const maxShift = 28;
 
       window.addEventListener('mousemove', (e) => {
         targetX = (e.clientX / window.innerWidth - 0.5) * 2;
@@ -159,13 +163,11 @@
       }
 
       const animate = (now) => {
-        // Плавна синусоїдальна хвиля: від 0 до 1 за 4 секунди, і від 1 до 0 за наступні 4 секунди
         const phase = (now / halfPeriodMs) * Math.PI;
-        const blend = (1 - Math.cos(phase)) * 0.5; // 0 -> 1 -> 0 з плавним уповільненням на краях
+        const blend = (1 - Math.cos(phase)) * 0.5;
 
         layer2.style.opacity = blend.toFixed(4);
 
-        // Невелике дихання масштабу та зсув від гіроскопа/миші
         currentX += (targetX - currentX) * 0.08;
         currentY += (targetY - currentY) * 0.08;
 
