@@ -2,226 +2,178 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Фон у стилі Дії — живий перелив</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Дія фон v5 — швидша анімація</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      margin: 0;
       min-height: 100vh;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      color: #111827;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #eef3f7;
+      overflow-x: hidden;
     }
 
-    .diia-bg {
+    .diia {
       position: fixed;
       inset: 0;
       z-index: -1;
       overflow: hidden;
-      background: linear-gradient(158deg, #dff5ec 0%, #e4eefc 45%, #ece2ff 100%);
-      pointer-events: none;
+      background: linear-gradient(165deg, #e5f6f1 0%, #e8f0f8 45%, #f0ebf7 100%);
     }
 
-    /* Діагональний нахил зони поділу кольорів */
-    .diia-angled-stage {
+    .blob {
       position: absolute;
-      inset: -30%;
-      transform: rotate(-14deg);
-      transform-origin: center center;
-    }
-
-    .blob-wrap {
-      position: absolute;
-      inset: 0;
-      will-change: transform;
-    }
-
-    .diia-blob {
-      position: absolute;
-      border-radius: 48% 52% 51% 49% / 46% 49% 51% 54%;
+      border-radius: 50%;
       filter: blur(80px);
-      opacity: 0.88;
-      will-change: transform, background-position;
-      background-size: 140% 140%;
+      will-change: transform;
+      opacity: 0.8;
     }
 
-    /* Верхньо-лівий м'ятно-зелений */
-    .blob-top-green {
+    .b1 {
+      width: 110vw;
+      height: 75vh;
+      background: radial-gradient(circle at 35% 40%, #6fd9b8 0%, #9aecd4 50%, transparent 72%);
+      top: -20%;
+      left: -25%;
+    }
+
+    .b2 {
+      width: 95vw;
+      height: 70vh;
+      background: radial-gradient(circle at 60% 45%, #7ec3f0 0%, #a8d8f5 55%, transparent 75%);
+      top: -5%;
+      right: -30%;
+    }
+
+    .b3 {
       width: 85vw;
-      height: 58vh;
-      min-width: 360px;
-      min-height: 260px;
-      background: radial-gradient(circle at 30% 35%, #7de0b8 0%, #a8f0dc 55%, transparent 78%);
-      top: 0%;
-      left: -12%;
-    }
-
-    /* Центральний блакитно-персиковий */
-    .blob-mid-accent {
-      width: 78vw;
-      height: 50vh;
-      min-width: 340px;
-      min-height: 240px;
-      background: radial-gradient(circle at 55% 45%, #8ecfff 0%, #ffc8d6 60%, transparent 80%);
-      top: 26%;
-      right: -14%;
-    }
-
-    /* Нижній фіолетово-бузковий */
-    .blob-bottom-violet {
-      width: 90vw;
       height: 60vh;
-      min-width: 380px;
-      min-height: 280px;
-      background: radial-gradient(circle at 50% 60%, #b9a0ff 0%, #d6c8ff 58%, transparent 78%);
-      bottom: -4%;
-      left: 2%;
+      background: radial-gradient(circle at 50% 50%, #f2b8c9 0%, #f7d0db 55%, transparent 78%);
+      top: 28%;
+      left: 10%;
+      opacity: 0.58;
+      filter: blur(70px);
     }
 
-    .demo-content {
+    .b4 {
+      width: 120vw;
+      height: 80vh;
+      background: radial-gradient(circle at 45% 60%, #b59aef 0%, #d0c0f5 50%, transparent 74%);
+      bottom: -25%;
+      left: -20%;
+    }
+
+    .b5 {
+      width: 90vw;
+      height: 65vh;
+      background: radial-gradient(circle at 55% 70%, #c9a8e8 0%, #e0d0f2 60%, transparent 78%);
+      bottom: -15%;
+      right: -25%;
+      opacity: 0.62;
+    }
+
+    .content {
       min-height: 100vh;
-      display: grid;
-      place-items: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding: 24px;
     }
 
     .card {
-      max-width: 480px;
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border-radius: 26px;
+      padding: 30px 26px;
+      max-width: 360px;
       width: 100%;
-      padding: 28px;
-      background: rgba(255, 255, 255, 0.72);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.65);
-      border-radius: 24px;
-      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
+      box-shadow: 0 18px 45px rgba(0,0,0,0.07);
+      border: 1px solid rgba(255,255,255,0.75);
+      text-align: center;
     }
 
-    .card h1 {
-      margin: 0 0 10px;
-      font-size: 22px;
+    h1 {
+      font-size: 21px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #1e293b;
     }
 
-    .card p {
-      margin: 0;
-      line-height: 1.55;
-      color: #374151;
+    p {
+      font-size: 14.5px;
+      line-height: 1.5;
+      color: #475569;
     }
   </style>
 </head>
 <body>
 
-  <div class="diia-bg" aria-hidden="true">
-    <div class="diia-angled-stage">
-      <div class="blob-wrap" data-depth="0.06">
-        <div class="diia-blob blob-top-green"></div>
-      </div>
-      <div class="blob-wrap" data-depth="-0.07">
-        <div class="diia-blob blob-mid-accent"></div>
-      </div>
-      <div class="blob-wrap" data-depth="0.055">
-        <div class="diia-blob blob-bottom-violet"></div>
-      </div>
+  <div class="diia">
+    <div class="blob b1" id="b1"></div>
+    <div class="blob b2" id="b2"></div>
+    <div class="blob b3" id="b3"></div>
+    <div class="blob b4" id="b4"></div>
+    <div class="blob b5" id="b5"></div>
+  </div>
+
+  <div class="content">
+    <div class="card">
+      <h1>Дія v5</h1>
+      <p>Анімація прискорена приблизно в 2–2.5 рази. Має бути добре видно.</p>
     </div>
   </div>
 
-  <main class="demo-content">
-    <div class="card">
-      <h1>Живий перелив кольорів</h1>
-      <p>Кольори тепер активно і плавно перетікають один в одного. Миша та гіроскоп додають додатковий зсув.</p>
-    </div>
-  </main>
-
   <script>
-    (() => {
-      const wraps = document.querySelectorAll('.diia-bg .blob-wrap');
-      const blobs = document.querySelectorAll('.diia-bg .diia-blob');
-      if (!wraps.length || !blobs.length) return;
+    const items = [
+      { id: 'b1', speed: 1.35, ampX: 95, ampY: 55, phase: 0.0 },
+      { id: 'b2', speed: 1.65, ampX: 110, ampY: 70, phase: 2.1 },
+      { id: 'b3', speed: 1.90, ampX: 80, ampY: 60, phase: 4.0 },
+      { id: 'b4', speed: 1.20, ampX: 115, ampY: 80, phase: 1.2 },
+      { id: 'b5', speed: 1.45, ampX: 100, ampY: 70, phase: 3.3 }
+    ].map(c => ({ ...c, el: document.getElementById(c.id) }));
 
-      let targetX = 0;
-      let targetY = 0;
-      let currentX = 0;
-      let currentY = 0;
-      const maxShift = 180;
+    let mx = 0, my = 0, cx = 0, cy = 0;
 
-      // Значно помітніші параметри руху
-      const motionConfigs = [
-        { speedX: 0.00085, speedY: 0.00062, ampX: 95, ampY: 55, phase: 0.0,  scaleAmp: 0.11, bgSpeed: 0.00028 },
-        { speedX: 0.00072, speedY: 0.00095, ampX: 110, ampY: 68, phase: 2.4, scaleAmp: 0.13, bgSpeed: 0.00035 },
-        { speedX: 0.00078, speedY: 0.00058, ampX: 100, ampY: 52, phase: 4.7, scaleAmp: 0.10, bgSpeed: 0.00031 }
-      ];
+    window.addEventListener('mousemove', e => {
+      mx = (e.clientX / innerWidth - 0.5) * 2;
+      my = (e.clientY / innerHeight - 0.5) * 2;
+    }, { passive: true });
 
-      window.addEventListener('mousemove', (e) => {
-        targetX = (e.clientX / window.innerWidth - 0.5) * 2;
-        targetY = (e.clientY / window.innerHeight - 0.5) * 2;
-      }, { passive: true });
-
-      const handleOrientation = (e) => {
-        if (e.gamma === null || e.beta === null) return;
-        const gamma = Math.max(-35, Math.min(35, e.gamma));
-        const beta = Math.max(-35, Math.min(35, e.beta - 45));
-        targetX = gamma / 35;
-        targetY = beta / 35;
-      };
-
-      const initGyro = () => {
-        if (
-          typeof DeviceOrientationEvent !== 'undefined' &&
-          typeof DeviceOrientationEvent.requestPermission === 'function'
-        ) {
-          DeviceOrientationEvent.requestPermission()
-            .then((state) => {
-              if (state === 'granted') {
-                window.addEventListener('deviceorientation', handleOrientation, { passive: true });
-              }
-            })
-            .catch(() => {});
-        } else {
-          window.addEventListener('deviceorientation', handleOrientation, { passive: true });
-        }
-        window.removeEventListener('touchstart', initGyro);
-      };
-
-      window.addEventListener('touchstart', initGyro, { passive: true });
-
-      if (
-        typeof DeviceOrientationEvent !== 'undefined' &&
-        typeof DeviceOrientationEvent.requestPermission !== 'function'
-      ) {
-        window.addEventListener('deviceorientation', handleOrientation, { passive: true });
+    window.addEventListener('deviceorientation', e => {
+      if (e.gamma != null && e.beta != null) {
+        mx = Math.max(-1, Math.min(1, e.gamma / 28));
+        my = Math.max(-1, Math.min(1, (e.beta - 42) / 28));
       }
+    }, { passive: true });
 
-      const animate = (now) => {
-        currentX += (targetX - currentX) * 0.07;
-        currentY += (targetY - currentY) * 0.07;
+    const t0 = performance.now();
 
-        for (let i = 0; i < wraps.length; i++) {
-          const depth = parseFloat(wraps[i].dataset.depth) || 0.05;
-          const moveX = (currentX * maxShift * depth * 10).toFixed(2);
-          const moveY = (currentY * maxShift * depth * 10).toFixed(2);
-          wraps[i].style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
+    function tick(now) {
+      const t = (now - t0) * 0.001;
 
-          const cfg = motionConfigs[i] || motionConfigs[0];
-          const driftX = (Math.sin(now * cfg.speedX + cfg.phase) * cfg.ampX).toFixed(2);
-          const driftY = (Math.cos(now * cfg.speedY + cfg.phase * 0.7) * cfg.ampY).toFixed(2);
-          const scale = (1 + Math.sin(now * cfg.speedX * 0.75 + cfg.phase) * cfg.scaleAmp).toFixed(4);
+      cx += (mx - cx) * 0.06;
+      cy += (my - cy) * 0.06;
 
-          // Додатковий рух градієнта всередині плями — саме це дає відчуття «переливу» кольорів
-          const bgX = (50 + Math.sin(now * cfg.bgSpeed + cfg.phase) * 22).toFixed(1);
-          const bgY = (50 + Math.cos(now * cfg.bgSpeed * 1.15 + cfg.phase * 0.8) * 18).toFixed(1);
+      items.forEach((item, i) => {
+        const x = Math.sin(t * item.speed + item.phase) * item.ampX
+                + Math.sin(t * item.speed * 0.7 + item.phase * 1.3) * item.ampX * 0.4
+                + cx * (28 + i * 12);
 
-          blobs[i].style.transform = `translate3d(${driftX}px, ${driftY}px, 0) scale(${scale})`;
-          blobs[i].style.backgroundPosition = `${bgX}% ${bgY}%`;
-        }
+        const y = Math.cos(t * item.speed * 0.95 + item.phase * 0.7) * item.ampY
+                + Math.cos(t * item.speed * 0.6 + item.phase) * item.ampY * 0.35
+                + cy * (22 + i * 10);
 
-        requestAnimationFrame(animate);
-      };
+        const scale = 1 + Math.sin(t * 0.45 + item.phase) * 0.09;
 
-      requestAnimationFrame(animate);
-    })();
+        item.el.style.transform = `translate3d(${x.toFixed(1)}px,${y.toFixed(1)}px,0) scale(${scale.toFixed(4)})`;
+      });
+
+      requestAnimationFrame(tick);
+    }
+
+    requestAnimationFrame(tick);
   </script>
 </body>
 </html>
