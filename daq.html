@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Дія Прототип</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { height: 100%; overflow: hidden; background: #e8e5fa; font-family: system-ui, -apple-system, sans-serif; }
+  
+  /* --- ФОН --- */
+  #bg-canvas { 
+    position: fixed; inset: 0; width: 100%; height: 100%; display: block; 
+    filter: blur(60px); transform: scale(1.2); z-index: -1;
+  }
+
+  /* --- ЕКРАН ВХОДУ (PIN) --- */
+  #screen-pin {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    z-index: 10;
+  }
+  #screen-pin.hidden {
+    opacity: 0; pointer-events: none; transform: scale(1.05);
+  }
+  .pin-header { text-align: center; margin-bottom: 40px; }
+  .pin-logo { font-size: 48px; font-weight: 800; letter-spacing: -2px; color: #111; }
+  .pin-subtitle { font-size: 16px; color: #444; margin-top: 8px; }
+  
+  /* Індикатори крапок PIN */
+  .pin-dots { display: flex; gap: 16px; margin-bottom: 50px; }
+  .pin-dot {
+    width: 16px; height: 16px; border-radius: 50%;
+    border: 2px solid #111; background: transparent;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .pin-dot.filled { background: #111; transform: scale(1.1); }
+  
+  /* Клавіатура */
+  .keypad { display: grid; grid-template-columns: repeat(3, 80px); gap: 20px; }
+  .key {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    font-size: 32px; font-weight: 500; color: #111;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: background 0.1s, transform 0.1s;
+  }
+  .key:active { background: rgba(255, 255, 255, 0.7); transform: scale(0.95); }
+  .key.empty { background: transparent; border: none; pointer-events: none; }
+
+  /* --- ЕКРАН ДОКУМЕНТІВ --- */
+  #screen-main {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.4s ease;
+    z-index: 5;
+  }
+  #screen-main.active { opacity: 1; pointer-events: auto; }
+
+  .header { padding: 60px 24px 20px; text-align: center; }
+  .header h1 { font-size: 28px; font-weight: 700; color: #111; }
+
+  /* Карусель */
+  .carousel-container {
+    flex: 1; display: flex; align-items: center; overflow-x: auto;
+    scroll-snap-type: x mandatory; padding: 0 10vw; gap: 16px;
+    scrollbar-width: none;
+  }
+  .carousel-container::-webkit-scrollbar { display: none; }
+  
+  .card-wrap {
+    flex: 0 0 80vw; max-width: 340px; aspect-ratio: 1 / 1.4;
+    scroll-snap-align: center; position: relative;
+  }
+  
+  .card {
+    width: 100%; height: 100%;
+    background: rgba(255, 255, 255, 0.55); backdrop-filter: blur(30px);
+    border-radius: 32px; padding: 32px 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    display: flex; flex-direction: column; position: relative;
+    transition: transform 0.3s ease, border-radius 0.3s ease, opacity 0.3s ease;
+  }
+  
+  .card-header { font-size: 20px; font-weight: 600; color: #111; margin-bottom: 24px; }
+  .card-body p { font-size: 14px; color: #444; margin-bottom: 6px; }
+  .card-body .value { font-size: 16px; color: #111; font-weight: 500; margin-bottom: 16px; }
+  .card-name { font-size: 22px; font-weight: 700; color: #111; margin-top: auto; line-height: 1.2; }
+  
+  /* Три точки */
+  .menu-btn {
+    position: absolute; bottom: 24px; right: 24px;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: #000; color: #fff; border: none;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; z-index: 2; transition: transform 0.2s;
+  }
+  .menu-btn:active { transform: scale(0.9); }
+  .menu-btn svg { width: 20px; height: 20px; fill: currentColor; }
+
+  /* --- МОДАЛЬНЕ ВІКНО (Меню) --- */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.3);
+    backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+    display: flex; align-items: flex-end; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 100;
+  }
+  .modal-overlay.active { opacity: 1; pointer-events: auto; }
+  
+  .modal-menu {
+    width: 100%; max-width: 500px;
+    background: #fff; border-radius: 24px 24px 0 0;
+    padding: 24px; transform: translateY(100%); transition: transform 0.3s ease;
+  }
+  .modal-overlay.active .modal-menu { transform: translateY(0); }
+  
+  .modal-handle { width: 40px; height: 4px; background: #ddd; border-radius: 2px; margin: 0 auto 20px; }
+  .menu-item {
+    padding: 16px 0; font-size: 18px; color: #111;
+    border-bottom: 1px solid #eee; cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .menu-item:last-child { border-bottom: none; }
+  .menu-item:active { opacity: 0.5; }
+
+  /* --- ПОВНОЕКРАННИЙ РЕЖИМ КАРТКИ --- */
+  #screen-full {
+    position: fixed; inset: 0; background: #f0f0f5; z-index: 200;
+    display: flex; flex-direction: column;
+    opacity: 0; pointer-events: none; transition: opacity 0.3s, transform 0.3s;
+    transform: translateY(100%);
+  }
+  #screen-full.active {
+    opacity: 1; pointer-events: auto; transform: translateY(0);
+  }
+  
+  .full-header {
+    padding: 60px 24px 20px; display: flex; align-items: center;
+    font-size: 20px; font-weight: 600; background: transparent;
+  }
+  .back-btn {
+    background: none; border: none; font-size: 24px; margin-right: 16px;
+    cursor: pointer; color: #111;
+  }
+  
+  .full-content {
+    flex: 1; background: #fff; border-radius: 32px 32px 0 0;
+    padding: 32px; overflow-y: auto;
+  }
+  .full-content h2 { font-size: 28px; margin-bottom: 30px; }
+  
+  /* QR-код заглушка */
+  .qr-placeholder {
+    width: 250px; height: 250px; background: #111; margin: 0 auto 30px;
+    border-radius: 12px; display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 12px; opacity: 0.1;
+  }
+
+  /* Адаптація під мобільні */
+  @media (max-height: 700px) {
+    .keypad { gap: 12px; }
+    .key { width: 64px; height: 64px; font-size: 24px; }
+    .pin-dots { margin-bottom: 30px; }
+  }
+</style>
+</head>
+<body>
+
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- ЕКРАН 1: ВХІД (PIN) -->
+  <div id="screen-pin">
+    <div class="pin-header">
+      <div class="pin-logo">Дія</div>
+      <div class="pin-subtitle">Введіть PIN-код</div>
+    </div>
+    
+    <div class="pin-dots">
+      <div class="pin-dot" id="dot0"></div>
+      <div class="pin-dot" id="dot1"></div>
+      <div class="pin-dot" id="dot2"></div>
+      <div class="pin-dot" id="dot3"></div>
+    </div>
+
+    <div class="keypad">
+      <div class="key" onclick="enterPin(1)">1</div>
+      <div class="key" onclick="enterPin(2)">2</div>
+      <div class="key" onclick="enterPin(3)">3</div>
+      <div class="key" onclick="enterPin(4)">4</div>
+      <div class="key" onclick="enterPin(5)">5</div>
+      <div class="key" onclick="enterPin(6)">6</div>
+      <div class="key" onclick="enterPin(7)">7</div>
+      <div class="key" onclick="enterPin(8)">8</div>
+      <div class="key" onclick="enterPin(9)">9</div>
+      <div class="key empty"></div>
+      <div class="key" onclick="enterPin(0)">0</div>
+      <div class="key" onclick="deletePin()" style="font-size: 20px;">⌫</div>
+    </div>
+  </div>
+
+  <!-- ЕКРАН 2: ДОКУМЕНТИ -->
+  <div id="screen-main">
+    <div class="header">
+      <h1>Мої документи</h1>
+    </div>
+    
+    <div class="carousel-container">
+      <!-- Картка 1 -->
+      <div class="card-wrap">
+        <div class="card">
+          <div class="card-header">єДокумент</div>
+          <div class="card-body">
+            <p>Дата народження:</p>
+            <div class="value">13.09.1971</div>
+            <p>РНОКПП:</p>
+            <div class="value">2618801198</div>
+          </div>
+          <div class="card-name">КУЧКОВСЬКИЙ<br>ДМИТРО<br>ВОЛОДИМИРОВИЧ</div>
+          <button class="menu-btn" onclick="openMenu()">
+            <svg viewBox="0 0 24 24"><path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Картка 2 -->
+      <div class="card-wrap">
+        <div class="card">
+          <div class="card-header">Посвідчення водія</div>
+          <div class="card-body">
+            <p>Категорії:</p>
+            <div class="value">B, C</div>
+            <p>Дійсне до:</p>
+            <div class="value">01.01.2030</div>
+          </div>
+          <div class="card-name">КУЧКОВСЬКИЙ<br>ДМИТРО<br>ВОЛОДИМИРОВИЧ</div>
+          <button class="menu-btn" onclick="openMenu()">
+            <svg viewBox="0 0 24 24"><path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- МОДАЛЬНЕ ВІКНО МЕНЮ -->
+  <div class="modal-overlay" id="menu-overlay" onclick="closeMenu(event)">
+    <div class="modal-menu" onclick="event.stopPropagation()">
+      <div class="modal-handle"></div>
+      <div class="menu-item" onclick="showFullScreen()">
+        <span>Плана версія (Повна)</span>
+        <span>→</span>
+      </div>
+      <div class="menu-item" style="color: #999;">Поділитися</div>
+      <div class="menu-item" style="color: #999;">Додати до гаманця</div>
+    </div>
+  </div>
+
+  <!-- ЕКРАН 3: ПОВНА ВЕРСІЯ КАРТКИ -->
+  <div id="screen-full">
+    <div class="full-header">
+      <button class="back-btn" onclick="closeFullScreen()">←</button>
+      Документ
+    </div>
+    <div class="full-content">
+      <h2>єДокумент</h2>
+      <div class="qr-placeholder">QR CODE</div>
+      <p style="font-size: 14px; color: #666; margin-bottom: 8px;">Дата народження:</p>
+      <p style="font-size: 18px; margin-bottom: 20px;">13.09.1971</p>
+      
+      <p style="font-size: 14px; color: #666; margin-bottom: 8px;">РНОКПП:</p>
+      <p style="font-size: 18px; margin-bottom: 20px;">2618801198</p>
+
+      <p style="font-size: 14px; color: #666; margin-bottom: 8px;">ПІБ:</p>
+      <p style="font-size: 24px; font-weight: 700; line-height: 1.2;">КУЧКОВСЬКИЙ<br>ДМИТРО<br>ВОЛОДИМИРОВИЧ</p>
+    </div>
+  </div>
+
+<script>
+  // --- ЛОГІКА PIN-КОДУ ---
+  let pin = "";
+  const correctPin = "1234"; // Будь-які 4 цифри, але для тесту залишимо 1234
+  
+  function enterPin(num) {
+    if (pin.length < 4) {
+      pin += num;
+      updateDots();
+      
+      // Якщо ввели 4 цифри — перевіряємо (в нашому випадку пускаємо будь-які)
+      if (pin.length === 4) {
+        setTimeout(() => {
+          // Перехід на головний екран
+          document.getElementById('screen-pin').classList.add('hidden');
+          document.getElementById('screen-main').classList.add('active');
+          pin = ""; // Скидаємо
+          updateDots();
+        }, 300);
+      }
+    }
+  }
+
+  function deletePin() {
+    if (pin.length > 0) {
+      pin = pin.slice(0, -1);
+      updateDots();
+    }
+  }
+
+  function updateDots() {
+    for (let i = 0; i < 4; i++) {
+      const dot = document.getElementById(`dot${i}`);
+      if (i < pin.length) dot.classList.add('filled');
+      else dot.classList.remove('filled');
+    }
+  }
+
+  // --- ЛОГІКА МЕНЮ ---
+  function openMenu() {
+    document.getElementById('menu-overlay').classList.add('active');
+  }
+
+  function closeMenu(e) {
+    if (e.target.id === 'menu-overlay') {
+      document.getElementById('menu-overlay').classList.remove('active');
+    }
+  }
+
+  // --- ЛОГІКА ПОВНОЕКРАННОГО РЕЖИМУ ---
+  function showFullScreen() {
+    document.getElementById('menu-overlay').classList.remove('active');
+    document.getElementById('screen-full').classList.add('active');
+  }
+
+  function closeFullScreen() {
+    document.getElementById('screen-full').classList.remove('active');
+  }
+
+
+  // --- ФОН (Код з попереднього кроку) ---
+  (function () {
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    const CONFIG = {
+      gridW: 80, gridH: 80,
+      colors: [[190,170,240],[170,210,250],[180,240,220],[250,240,180],[240,200,240],[255,255,255]],
+      rotationSpeed: (Math.PI * 2) / 20000, falloff: 2.0,
+    };
+    let W = 0, H = 0, off = document.createElement('canvas'), offCtx = off.getContext('2d');
+    let imgData, buf, nodes = [], lastT = 0, currentAngle = 0;
+
+    function makeNodes() {
+      nodes = [];
+      const count = CONFIG.colors.length;
+      for (let i = 0; i < count; i++) {
+        nodes.push({
+          baseAngle: (Math.PI * 2 / count) * i,
+          radius: 0.2 + (i * 0.05),
+          color: CONFIG.colors[i],
+        });
+      }
+    }
+
+    function resize() {
+      W = window.innerWidth; H = window.innerHeight;
+      if (W === 0 || H === 0) return;
+      canvas.width = W; canvas.height = H;
+      canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+      off.width = CONFIG.gridW; off.height = CONFIG.gridH;
+      imgData = offCtx.createImageData(CONFIG.gridW, CONFIG.gridH);
+      buf = imgData.data;
+      if (nodes.length === 0) makeNodes();
+      renderFrame(16);
+    }
+
+    function renderFrame(dt) {
+      const gw = CONFIG.gridW, gh = CONFIG.gridH;
+      const gwMinus1 = gw - 1, ghMinus1 = gh - 1;
+      currentAngle += CONFIG.rotationSpeed * dt;
+      const nodeCount = nodes.length;
+      const nx = new Float32Array(nodeCount), ny = new Float32Array(nodeCount);
+      const nr = new Float32Array(nodeCount), ng = new Float32Array(nodeCount), nb = new Float32Array(nodeCount);
+
+      for (let k = 0; k < nodeCount; k++) {
+        const angle = nodes[k].baseAngle + currentAngle;
+        nx[k] = 0.5 + Math.cos(angle) * nodes[k].radius;
+        ny[k] = 0.5 + Math.sin(angle) * nodes[k].radius;
+        nr[k] = nodes[k].color[0]; ng[k] = nodes[k].color[1]; nb[k] = nodes[k].color[2];
+      }
+
+      let idx = 0;
+      for (let j = 0; j < gh; j++) {
+        const vy = j / ghMinus1;
+        for (let i = 0; i < gw; i++) {
+          const vx = i / gwMinus1;
+          let sumW = 0, r = 0, g = 0, b = 0;
+          for (let k = 0; k < nodeCount; k++) {
+            const dx = vx - nx[k], dy = vy - ny[k];
+            const d2 = dx * dx + dy * dy;
+            const w = 1 / (Math.pow(d2 + 0.02, CONFIG.falloff));
+            sumW += w; r += nr[k] * w; g += ng[k] * w; b += nb[k] * w;
+          }
+          buf[idx++] = r / sumW; buf[idx++] = g / sumW; buf[idx++] = b / sumW; buf[idx++] = 255;
+        }
+      }
+      offCtx.putImageData(imgData, 0, 0);
+      ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
+      ctx.drawImage(off, 0, 0, W, H);
+    }
+
+    function loop(t) {
+      if (!lastT) lastT = t;
+      const dt = Math.min(t - lastT, 50);
+      lastT = t;
+      renderFrame(dt);
+      requestAnimationFrame(loop);
+    }
+
+    window.addEventListener('resize', () => {
+      clearTimeout(window.__rt);
+      window.__rt = setTimeout(resize, 150);
+    });
+
+    window.addEventListener('load', () => { resize(); requestAnimationFrame(loop); });
+  })();
+</script>
+</body>
+</html>
